@@ -1,0 +1,2950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SP Architects — WUF13</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --ink: #0f0e0c;
+  --ink-soft: #3a3831;
+  --ink-muted: #7a7668;
+  --ink-faint: #b8b4a8;
+  --paper: #f7f5f0;
+  --paper-dark: #edeae2;
+  --paper-mid: #f2efe8;
+  --gold: #c4922a;
+  --gold-light: #f0dcb0;
+  --gold-faint: #faf3e3;
+  --green: #1b7a5a;
+  --green-light: #e0f2ea;
+  --blue: #2056a0;
+  --blue-light: #dde8f8;
+  --amber: #b05b10;
+  --amber-light: #fdebd8;
+  --purple: #5a3fa0;
+  --purple-light: #ece8fa;
+  --red: #a02020;
+  --border: rgba(15,14,12,0.10);
+  --border-strong: rgba(15,14,12,0.22);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 2rem;
+  height: 48px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+nav a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+nav a:hover, nav a.active { color: #fff; border-bottom-color: var(--gold); }
+nav .logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 15px;
+  margin-right: 24px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ink);
+  color: #fff;
+  padding: 5rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.03) 39px,
+      rgba(255,255,255,0.03) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.03) 39px,
+      rgba(255,255,255,0.03) 40px
+    );
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(196,146,42,0.4);
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 800px;
+}
+.hero h1 span { color: var(--gold); }
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1rem;
+  max-width: 560px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: left; }
+.hero-stat .n {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat .l {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 4px;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 4rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+section + section { padding-top: 0; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.section-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── STAT GRID ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.stat-cell {
+  background: var(--paper);
+  padding: 1.25rem 1.5rem;
+}
+.stat-cell .n {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.stat-cell .n.gold { color: var(--gold); }
+.stat-cell .l {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ── EVENT OVERVIEW ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.overview-box {
+  background: var(--paper-mid);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.overview-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.overview-box p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.tag-cloud { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  background: var(--paper-dark);
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+}
+.tag.gold { background: var(--gold-faint); color: var(--gold); border-color: var(--gold-light); }
+.tag.green { background: var(--green-light); color: var(--green); border-color: rgba(27,122,90,0.2); }
+.tag.blue { background: var(--blue-light); color: var(--blue); border-color: rgba(32,86,160,0.2); }
+.tag.amber { background: var(--amber-light); color: var(--amber); border-color: rgba(176,91,16,0.2); }
+
+/* ── ADVANTAGE CARDS ── */
+.advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.adv-card {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.adv-card .icon { font-size: 24px; margin-bottom: 10px; }
+.adv-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.adv-card p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+/* ── COUNTRY CARDS ── */
+.tier-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: 0.5rem 0;
+  margin: 1.75rem 0 0.75rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tier-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+
+.country-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+.country-card.t1 { border-left: 4px solid var(--green); }
+.country-card.t2 { border-left: 4px solid var(--blue); }
+.country-card.t3 { border-left: 4px solid var(--amber); }
+.country-card.t4 { border-left: 4px solid var(--ink-faint); }
+
+.cc-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  padding: 1.1rem 1.4rem 0.6rem;
+  gap: 12px;
+}
+.cc-flag-name { display: flex; align-items: center; gap: 10px; }
+.cc-flag { font-size: 22px; line-height: 1; }
+.cc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cc-ministry {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+.cc-badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+.badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-gold { background: var(--gold-faint); color: var(--gold); }
+.badge-gray { background: var(--paper-dark); color: var(--ink-muted); }
+
+.cc-body { padding: 0.5rem 1.4rem 1.1rem; }
+.cc-body p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; }
+.cc-sp {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--green-light);
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--green);
+  line-height: 1.55;
+}
+.cc-sp strong { font-weight: 600; }
+
+/* ── MUST MEET LIST ── */
+.person-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  transition: box-shadow 0.2s;
+}
+.person-row:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.person-row.pt1 { border-left: 4px solid var(--green); }
+.person-row.pt2 { border-left: 4px solid var(--blue); }
+.person-row.pt3 { border-left: 4px solid var(--amber); }
+.person-row.ptc { border-left: 4px solid var(--purple); }
+
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700; flex-shrink: 0;
+}
+.av-green { background: var(--green-light); color: var(--green); }
+.av-blue { background: var(--blue-light); color: var(--blue); }
+.av-amber { background: var(--amber-light); color: var(--amber); }
+.av-purple { background: var(--purple-light); color: var(--purple); }
+
+.person-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.person-role { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.person-country { font-size: 12px; color: var(--ink-muted); margin-top: 1px; }
+.person-hook {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  padding-left: 10px;
+  border-left: 2px solid var(--border-strong);
+  line-height: 1.6;
+}
+.person-hook strong { color: var(--ink); font-weight: 600; }
+.person-hook.note {
+  border-left-color: var(--green);
+  background: var(--green-light);
+  padding: 6px 10px;
+  border-radius: 0 4px 4px 0;
+  color: var(--green);
+  margin-top: 6px;
+}
+
+.check-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.check-btn {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--green);
+  transition: all 0.15s;
+  background: #fff;
+}
+.check-btn.done { background: var(--green-light); border-color: var(--green); }
+.day-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-muted);
+  background: var(--paper-dark);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ── PROGRESS ── */
+.progress-wrap { margin-bottom: 1.5rem; }
+.progress-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; }
+.progress-track {
+  height: 5px;
+  background: var(--paper-dark);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* ── MESSAGES ── */
+.msg-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+.msg-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 0.75rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.msg-to {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+.msg-context { font-size: 11px; color: rgba(255,255,255,0.5); }
+.msg-body { padding: 1.1rem 1.4rem; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+.msg-body .hook-phrase { color: var(--ink); font-weight: 600; }
+.msg-note {
+  background: var(--gold-faint);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 1.4rem;
+  font-size: 12px;
+  color: var(--amber);
+  line-height: 1.5;
+}
+.msg-note strong { font-weight: 600; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 68px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border-strong);
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 0;
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+.tl-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  padding-right: 20px;
+  padding-top: 3px;
+  text-align: right;
+  line-height: 1.4;
+}
+.tl-dot {
+  position: absolute;
+  left: 63px;
+  top: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--paper);
+}
+.tl-content {
+  padding-left: 24px;
+}
+.tl-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.tl-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; }
+.tl-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+
+/* ── NON-GOVT ALLIES ── */
+.ally-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+.ally-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ally-type { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+.ally-body { font-size: 13px; color: var(--ink-soft); margin-top: 7px; line-height: 1.6; }
+
+/* ── ALERT ── */
+.alert {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+}
+.alert h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.alert p { font-size: 13.5px; color: rgba(255,255,255,0.75); line-height: 1.7; }
+.alert p + p { margin-top: 8px; }
+.alert strong { color: #fff; }
+
+/* ── LEGEND ── */
+.legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 1rem; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-muted); }
+.legend-line { width: 20px; height: 4px; border-radius: 2px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 2rem;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  margin-top: 4rem;
+}
+footer span { color: var(--gold); }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 700px) {
+  .hero { padding: 3rem 1.5rem 2.5rem; }
+  section { padding: 3rem 1.5rem; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .advantage-grid { grid-template-columns: 1fr; }
+  .person-row { grid-template-columns: 40px 1fr; }
+  .check-wrap { display: none; }
+  .timeline::before { left: 52px; }
+  .tl-item { grid-template-columns: 52px 1fr; }
+  .tl-dot { left: 47px; }
+  nav { padding: 0 1rem; }
+  .ally-card { grid-template-columns: 1fr; }
+}
+
+@media print {
+  nav { display: none; }
+  .hero { padding: 2rem; }
+  section { padding: 2rem; page-break-inside: avoid; }
+  .country-card, .person-row, .msg-card { page-break-inside: avoid; }
+}
+
+
+/* ── LANGUAGE GATE ── */
+* { box-sizing: border-box; }
+
+#lang-gate {
+  position: fixed;
+  inset: 0;
+  background: #0f0e0c;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+
+.gate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100vh;
+}
+
+.gate-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+  padding: 3rem;
+  gap: 1.5rem;
+}
+
+.gate-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.03) 39px,rgba(255,255,255,0.03) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.03) 39px,rgba(255,255,255,0.03) 40px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gate-panel:hover::before { opacity: 1; }
+
+.gate-panel.en-panel { background: #0f0e0c; border-right: 1px solid rgba(196,146,42,0.3); }
+.gate-panel.tr-panel { background: #0f0e0c; }
+.gate-panel.en-panel:hover { background: #1a1916; }
+.gate-panel.tr-panel:hover { background: #1a1916; }
+
+.gate-divider {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  background: #0f0e0c;
+  border: 1px solid rgba(196,146,42,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(196,146,42,0.7);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+.gate-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(196,146,42,0.6);
+  border: 1px solid rgba(196,146,42,0.25);
+  padding: 4px 14px;
+  border-radius: 2px;
+}
+
+.gate-flag {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.gate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.gate-title span { color: #c4922a; display: block; }
+
+.gate-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 240px;
+}
+
+.gate-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f0e0c;
+  background: #c4922a;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+.gate-btn:hover { background: #d4a23a; transform: translateY(-1px); }
+
+/* ── LANGUAGE PANELS ── */
+#content-en, #content-tr {
+  display: none;
+}
+
+.lang-switch-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 8px;
+}
+
+.lang-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(15,14,12,0.85);
+  color: rgba(255,255,255,0.45);
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+  text-transform: uppercase;
+}
+.lang-btn:first-child { border-radius: 4px 0 0 4px; }
+.lang-btn:last-child { border-radius: 0 4px 4px 0; }
+.lang-btn.active {
+  background: #c4922a;
+  color: #0f0e0c;
+  border-color: #c4922a;
+  font-weight: 700;
+}
+.lang-btn:hover:not(.active) {
+  background: rgba(196,146,42,0.15);
+  color: rgba(255,255,255,0.75);
+}
+
+@media(max-width: 600px) {
+  .gate-grid { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .gate-panel.en-panel { border-right: none; border-bottom: 1px solid rgba(196,146,42,0.3); }
+  .gate-divider { top: 50%; left: 50%; }
+  .gate-flag { font-size: 40px; }
+  .gate-title { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── LANGUAGE GATE ── -->
+<div id="lang-gate">
+  <div class="gate-grid">
+
+    <div class="gate-panel en-panel" onclick="selectLang('en')">
+      <div class="gate-eyebrow">Select Language</div>
+      <div class="gate-flag">🇬🇧</div>
+      <div class="gate-title">WUF13<span>Field Guide</span></div>
+      <div class="gate-sub">SP Architects strategic brief for the 13th World Urban Forum, Baku 2026</div>
+      <button class="gate-btn" onclick="selectLang('en')">Open in English</button>
+    </div>
+
+    <div class="gate-panel tr-panel" onclick="selectLang('tr')">
+      <div class="gate-eyebrow">Dil Seçin</div>
+      <div class="gate-flag">🇹🇷</div>
+      <div class="gate-title">WUF13<span>Saha Rehberi</span></div>
+      <div class="gate-sub">SP Architects için 13. Dünya Kent Forumu Bakü 2026 stratejik hazırlık dosyası</div>
+      <button class="gate-btn" onclick="selectLang('tr')">Türkçe Aç</button>
+    </div>
+
+  </div>
+  <div class="gate-divider">or</div>
+</div>
+
+<!-- Language switcher (shown after selection) -->
+<div class="lang-switch-bar" id="lang-switch-bar" style="display:none;">
+  <div class="lang-btn active" id="btn-en" onclick="switchLang('en')">EN</div>
+  <div class="lang-btn" id="btn-tr" onclick="switchLang('tr')">TR</div>
+</div>
+
+<!-- ── ENGLISH CONTENT ── -->
+<div id="content-en">
+<nav>
+  <div class="logo">SP Architects</div>
+  <a href="#en-overview">Overview</a>
+  <a href="#en-strategy">SP Strategy</a>
+  <a href="#en-countries">Countries</a>
+  <a href="#en-allies">Allies</a>
+  <a href="#en-mustmeet">Must-Meet</a>
+  <a href="#en-messages">Messages</a>
+  <a href="#en-floorplan">Floor Plan</a><a href="#en-sessions">Sessions</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Confidential Intelligence Brief · May 2026</div>
+  <h1>WUF13 Baku<br><span>Strategic Field Guide</span></h1>
+  <p class="hero-sub">Complete outreach intelligence for SP Architects at the 13th World Urban Forum — 17–22 May 2026, Baku, Azerbaijan</p>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="n">178</div><div class="l">Countries<br>represented</div></div>
+    <div class="hero-stat"><div class="n">30K</div><div class="l">Registered<br>participants</div></div>
+    <div class="hero-stat"><div class="n">11</div><div class="l">Housing<br>ministries</div></div>
+    <div class="hero-stat"><div class="n">16</div><div class="l">Key contacts<br>identified</div></div>
+    <div class="hero-stat"><div class="n">3</div><div class="l">Tier 1<br>targets</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1: OVERVIEW -->
+<section id="en-overview">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <h2>Event Overview</h2>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-cell"><div class="n gold">WUF13</div><div class="l">13th World Urban Forum<br>Hosted in Baku for the first time in the Caucasus</div></div>
+    <div class="stat-cell"><div class="n">17–22</div><div class="l">May 2026<br>6 full days, Baku Olympic Stadium</div></div>
+    <div class="stat-cell"><div class="n">13.3%</div><div class="l">Business participants<br>Highest in WUF history</div></div>
+    <div class="stat-cell"><div class="n">370+</div><div class="l">Partner events<br>Including ministerial meeting Day 1</div></div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-box">
+      <h3>Theme & Focus</h3>
+      <p>"Housing the World: Safe and Resilient Cities and Communities" — the forum places housing at the centre of global urban policy. Occurring at the exact midpoint of the New Urban Agenda's 20-year timeline, WUF13 will shape housing investment and policy globally through 2036.</p>
+      <div class="tag-cloud">
+        <span class="tag gold">Housing crisis</span>
+        <span class="tag gold">Post-conflict rebuild</span>
+        <span class="tag gold">Climate resilience</span>
+        <span class="tag">Informal settlements</span>
+        <span class="tag">Housing finance</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Ministerial Meeting — Day 1 (May 17)</h3>
+      <p>A brand-new feature: a full-day Ministerial Meeting chaired by Azerbaijan brings all Housing Ministers together on Day 1. Three thematic panels follow ministerial statements. Concludes with the <strong>Baku Call to Action</strong> — a global housing policy document through 2036.</p>
+      <div class="tag-cloud">
+        <span class="tag green">All housing ministers in one room</span>
+        <span class="tag green">Day 1 priority</span>
+        <span class="tag green">Baku Call to Action</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Urban Expo — 41 Country Pavilions</h3>
+      <p>41 countries have national pavilions at the Baku Olympic Stadium. These are staffed by project-level teams — not just ministers — making them ideal for technical, procurement-level conversations. Visit the Saudi, Oman, Uzbekistan, and Morocco pavilions on Days 3–4.</p>
+      <div class="tag-cloud">
+        <span class="tag blue">Technical conversations</span>
+        <span class="tag blue">Project teams present</span>
+        <span class="tag blue">Days 3–4</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Azerbaijan Karabağ Connection</h3>
+      <p>Azerbaijan is presenting its Karabağ and Eastern Zangezur reconstruction as a global model of post-conflict urban revival at WUF13. SP Architects has direct parallel experience in Turkey. This is a powerful opening for engagement with the host country — and a credential that resonates with every delegation present.</p>
+      <div class="tag-cloud">
+        <span class="tag amber">SP direct parallel</span>
+        <span class="tag amber">Host country connection</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 2: SP STRATEGY -->
+<section id="en-strategy">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <h2>SP Architects Competitive Position</h2>
+  </div>
+
+  <div class="advantage-grid">
+    <div class="adv-card">
+      <div class="icon">🏗️</div>
+      <h4>Post-Earthquake Master Planning</h4>
+      <p>Proven delivery in Kahramanmaraş after the 2023 earthquake — a direct, verifiable credential for Morocco, and any disaster-recovery nation in the room. No other firm can say what SP can say.</p>
+    </div>
+    <div class="adv-card">
+      <div class="icon">🕊️</div>
+      <h4>Post-Conflict Urban Rebuild</h4>
+      <p>Karabağ-parallel reconstruction portfolio. Unique differentiator for the Gulf, Central Asia, and African recovery markets. Azerbaijan is presenting this exact capability type as a global model at WUF13.</p>
+    </div>
+    <div class="adv-card">
+      <div class="icon">🕌</div>
+      <h4>Islamic & Heritage-Sensitive Design</h4>
+      <p>Turkish identity + cultural alignment opens Gulf and North Africa doors where generic Western firms lack credibility. Saudi Arabia's 2025 royal mandate specifically requires regional architectural character.</p>
+    </div>
+  </div>
+
+  <div class="alert">
+    <h4>⚡ Two Time-Sensitive Intelligence Notes</h4>
+    <p><strong>Nigeria has a brand new minister.</strong> Engr. Muttaqha Rabe Darma assumed office on April 27, 2026 — just 17 days before WUF13 opens. This is his first international event as minister. He has zero established relationships with international architecture firms. The previous minister, Dangiwa (himself an architect), was removed in a cabinet reshuffle. The window to be the first credible firm to introduce yourselves is right now, at this event.</p>
+    <p><strong>Azerbaijan's Karabağ reconstruction</strong> is being showcased at WUF13 as a global model. WUF13 National Coordinator Anar Guliyev is the person to meet — SP's Turkey post-conflict experience is a direct parallel. This is your home-ground opening to the host country and a credential that speaks to every delegation in the room simultaneously.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 3: COUNTRIES -->
+<section id="en-countries">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <h2>Country-by-Country Analysis</h2>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:var(--green);"></div> Tier 1 — Active budget, immediate opportunity</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--blue);"></div> Tier 2 — Strong pipeline, 6–18 months</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--amber);"></div> Tier 3 — Recovery phase, 1–3 years</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--ink-faint);"></div> Tier 4 — Relationship building only</div>
+  </div>
+
+  <!-- TIER 1 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--green);"></div> Tier 1 — Meet Day 1, Active Budget</div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇴🇲</span>
+        <div>
+          <div class="cc-name">Oman</div>
+          <div class="cc-ministry">Ministry of Housing and Urban Planning</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">$1.28B+ Active</span>
+        <span class="badge badge-gold">Day 1 Priority</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Sultan Haitham City (100,000 residents), A'Thuraya coastal city, Al Khuwair Downtown regeneration, Future Salalah City — plus six new integrated residential masterplan areas just launched across four governorates covering 1.4 million sqm. All are actively tendering internationally. Oman completed 130+ business meetings at MIPIM 2026 specifically seeking international master planners. This is the most accessible Tier 1 target with an open, active brief.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Oman seeks heritage-integrated modern design. Your Karabağ reconstruction portfolio (context-sensitive planning under pressure) is a direct fit. Minister Al-Shuaili is an architect with a PhD from Glasgow — he will speak your language technically.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">New city planning</span>
+        <span class="tag">Coastal development</span>
+        <span class="tag">Integrated neighbourhoods</span>
+        <span class="tag">Sorouh Initiative</span>
+        <span class="tag">Transit-oriented design</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇸🇦</span>
+        <div>
+          <div class="cc-name">Saudi Arabia</div>
+          <div class="cc-ministry">Ministry of Municipalities and Housing</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">$100B+ Vision 2030</span>
+        <span class="badge badge-gold">Minister Confirmed</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Multiple giga-projects seeking international master planners: New Murabba (19km², $50B), King Salman Park (16.9km²), Diriyah Gate ($63B), Misk City (3.4km²). A 2025 royal decree mandates regional architectural character across all major construction. 17 Saudi cities are under National Urban Policy review. Minister Majed Al-Hogail is personally leading the Saudi WUF13 delegation — confirmed by official state news.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> The 2025 architectural character mandate creates a specific opening for culturally-sensitive Turkish firms. Both AUDI and King Salman Foundation are also at WUF13 — approach all three entry points. Albert Speer + Partner is the current masterplanner for Misk City — SP should aim at other projects where that slot is open.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">Mega-project urbanism</span>
+        <span class="tag">New downtown districts</span>
+        <span class="tag">Heritage-modern integration</span>
+        <span class="tag">King Salman Foundation (WUF13)</span>
+        <span class="tag">AUDI (WUF13)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇲🇦</span>
+        <div>
+          <div class="cc-name">Morocco</div>
+          <div class="cc-ministry">Ministry of National Territory Planning, Urban Planning, Housing and City Policy</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">FIFA 2030 + Earthquake Rebuild</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Post-2023 Haouz earthquake reconstruction across Al Haouz, Chichaoua, Taroudant provinces is ongoing. FIFA 2030 World Cup accelerating urban development in Casablanca, Rabat, Marrakech, Agadir. Bouregreg Valley regeneration (40km²) continuing. 90%+ urban planning coverage achieved at national level — now executing. Minister El Mansouri is also Mayor of Marrakech — a remarkably hands-on leader.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Your earthquake-response expertise from Turkey is a direct, unmatched credential. Morocco needs rapid, culturally respectful reconstruction — exactly what SP demonstrated post-Kahramanmaraş. No other international firm in Baku can claim this specific parallel.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">Post-earthquake reconstruction</span>
+        <span class="tag">FIFA 2030 urban upgrade</span>
+        <span class="tag">Mixed-use regeneration</span>
+        <span class="tag">Social cohesion housing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--blue);"></div> Tier 2 — Schedule Bilaterals Days 2–3</div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇧🇭</span>
+        <div>
+          <div class="cc-name">Bahrain</div>
+          <div class="cc-ministry">Ministry of Housing and Urban Planning</div>
+        </div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">Gulf budget confirmed</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Small island state with concentrated urban pressure and Vision 2030 housing reform underway. Limited land availability means density, transit-oriented design, and mixed-use master planning are top priorities. Gulf funding pools are accessible and confirmed for housing projects.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Compact city planning and mixed-use district design. Identify the minister's name in the Day 1 ministerial programme booklet before approaching the delegation.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇺🇿</span>
+        <div>
+          <div class="cc-name">Uzbekistan</div>
+          <div class="cc-ministry">National Committee for Urbanization and Sustainable Housing Market Development</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-blue">New Tashkent showcase at WUF13</span>
+        <span class="badge badge-blue">State-backed</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>New Tashkent is being presented at WUF13 as a flagship project. Uzbekistan is aggressively internationalising its urban development procurement and has been specifically seeking international master planners. Turkish firms have strong existing relations and language/cultural proximity through shared Turkic heritage.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Turkish firms are a natural match — shared cultural and linguistic background. New Tashkent masterplan procurement is the target conversation. Visit the Uzbekistan Urban Expo pavilion on Days 3–4.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇮🇳</span>
+        <div>
+          <div class="cc-name">India</div>
+          <div class="cc-ministry">Housing and Urban Development Corporation (HUDCO)</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-blue">Rs 1,00,000 crore MoU (Apr 2026)</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>HUDCO signed 2 MoUs with NBCC in April 2026 for redevelopment and asset monetization. Rs 1,00,000 crore commitment to Chhattisgarh urban projects. AAA credit-rated. Their UiWIN programme specifically brings in international urban partners for Smart City and housing programmes. India's scale of urban development is enormous.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Position SP as a technical design partner within HUDCO's project finance model. Their UiWIN programme is the specific entry point for international firms. Massive scale, long-term pipeline.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇯🇵</span>
+        <div>
+          <div class="cc-name">Japan</div>
+          <div class="cc-ministry">Ministry of Land, Infrastructure, Transport and Tourism (MLIT)</div>
+        </div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">Strategic partnership play</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Japan is not a market for SP to design in directly. The angle here is different: Japan exports urban planning expertise globally and funds major projects in developing countries through ODA (Official Development Assistance). A Japanese firm or MLIT partnership could open co-bidding on JICA and ADB-funded projects in Uzbekistan, Bangladesh, and East Africa where SP would not qualify alone.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Seek a co-bidding or sub-consultancy arrangement for JICA-funded projects in Central Asia and Africa. This multiplies SP's reach without requiring SP to win contracts independently in new markets.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇹🇿</span>
+        <div>
+          <div class="cc-name">Tanzania</div>
+          <div class="cc-ministry">Ministry of Lands, Housing and Human Settlements Development</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-blue">FYDP IV — TZS 8 trillion flagship</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>FYDP IV (2026–2031) targets reducing informal settlements from 59% to 21% of land — one of Africa's most ambitious urban transformation plans. 3.8 million unit housing deficit. Zanzibar targeting 5,000 new homes (announced May 2026). TUGNe 2050 flagship with TZS 8 trillion investment framework. World Bank and ADB funding actively flowing.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> The scale of formal masterplanning required across Tanzania's secondary cities is exactly SP's capability. World Bank funding means international design consultant eligibility is confirmed. This is a strong mid-term pipeline.</div>
+    </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--amber);"></div> Tier 3 — Relationship Seeds, Days 4–5</div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇳🇬</span>
+        <div>
+          <div class="cc-name">Nigeria</div>
+          <div class="cc-ministry">Federal Ministry of Housing and Urban Development</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-amber">Brand new minister — 3 weeks in office</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>New minister Engr. Muttaqha Rabe Darma assumed office April 27 — WUF13 is his first international event. National Social Housing Programme continuing. Lagos, Abuja, and secondary cities under urban restructuring. Large informal settlement challenge. Budget exists but procurement cycles are long — this is a seed-planting conversation.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Being the first serious international architecture firm to introduce yourself to a brand-new minister is a rare and valuable position. He has no existing relationships with foreign firms yet. Use this window.</div>
+    </div>
+  </div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇺🇬</span>
+        <div>
+          <div class="cc-name">Uganda</div>
+          <div class="cc-ministry">Ministry of Lands, Housing and Urban Development</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-amber">Active EOI — Feb 2026</span>
+        <span class="badge badge-amber">10 cities + 26 municipalities</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Greater Kampala Metropolitan Master Plan underway. Active EOI published February 2026 for climate-resilient engineering design consultancy across 10 cities and 26 municipalities (UCMID programme, World Bank-funded). Urban development budget growing from UGX 53B to 188B over three years. Pipeline is building.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> The active UCMID EOI is a specific procurement opportunity. Ask directly about eligibility and timeline for international design consultants.</div>
+    </div>
+  </div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇿🇼</span>
+        <div>
+          <div class="cc-name">Zimbabwe</div>
+          <div class="cc-ministry">Ministry of National Housing and Social Amenities</div>
+        </div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-amber">UN-Habitat Board 2025–2029</span></div>
+    </div>
+    <div class="cc-body">
+      <p>220,000 housing unit target. 17 smart cities plan under Vision 2030. 1.25M unit housing deficit. National budget currently limited ($19.3M housing allocation) but Zimbabwe is on the UN-Habitat Executive Board 2025–2029, meaning multilateral funding will flow. Minister Zhemu Soda recently met with Russian housing counterpart — open to international engagement.</p>
+      <div class="cc-sp"><strong>SP angle:</strong> Long-term play. Plant the seed now, build the relationship over 12–24 months as multilateral funding comes through via UN-Habitat.</div>
+    </div>
+  </div>
+
+  <!-- TIER 4 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--ink-faint);"></div> Tier 4 — Relationship Building Only</div>
+
+  <div class="country-card t4">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇧🇩</span>
+        <div>
+          <div class="cc-name">Bangladesh</div>
+          <div class="cc-ministry">Ministry of Housing and Public Works</div>
+        </div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-gray">ADB/World Bank funded</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Dhaka is one of the world's fastest-growing megacities with a large housing deficit. World Bank and ADB channeling significant funds. Approach the delegation about ADB-funded planning projects as a long-term pipeline. Attending WUF13 as an IGO participant.</p>
+    </div>
+  </div>
+
+  <div class="country-card t4">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇲🇾</span>
+        <div>
+          <div class="cc-name">Malaysia</div>
+          <div class="cc-ministry">Urbanice Malaysia / Ministry of Housing and Local Government (KPKT)</div>
+        </div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-gray">Southeast Asia door</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Malaysia's Urbanice is an international urban cooperation body. Active affordable housing and smart city programmes. Could serve as a Southeast Asian regional entry point and introduction network for SP. Participating as an IGO at WUF13.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 4: NON-GOVT ALLIES -->
+<section id="en-allies">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <h2>Key Non-Government Allies</h2>
+  </div>
+  <p style="font-size:14px; color:var(--ink-muted); margin-bottom:1.5rem;">These organisations act as connectors, funders, and multipliers. One relationship with AUDI unlocks 20+ Arab ministry introductions. Meeting the World Bank team gives access to their consultant procurement pipeline across Africa and Asia.</p>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇸🇦 Arab Urban Development Institute (AUDI)</div>
+      <div class="ally-type">Inter-Governmental Organization — Saudi Arabia — attending WUF13</div>
+      <div class="ally-body">Regional hub for urban policy across all Arab states. Acts as procurement advisor and connector for Gulf housing ministries. One meeting with AUDI = potential introductions to 20+ Arab country housing decision-makers. Ask specifically: which AUDI member countries are most actively seeking international master planners right now?</div>
+    </div>
+    <span class="badge badge-green">Priority connector</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇸🇦 King Salman Foundation</div>
+      <div class="ally-type">Foundation — Saudi Arabia — attending WUF13</div>
+      <div class="ally-body">Saudi Arabia's cultural and development foundation, directly linked to Vision 2030 urban projects. Can open doors to PIF-funded megaprojects (NEOM components, Diriyah, Qiddiya) that are extremely difficult to access otherwise. Mention SP's cultural sensitivity in design — this resonates with the Foundation's mission.</div>
+    </div>
+    <span class="badge badge-green">Priority connector</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇧🇪 World Bank Group</div>
+      <div class="ally-type">Inter-Governmental Organization — attending WUF13</div>
+      <div class="ally-body">Funds Tanzania FYDP IV, Uganda UCMID, and Bangladesh urban programmes where SP could qualify as international design consultant. Ask the World Bank Urban team directly: how does an international architecture firm get included on World Bank-funded urban planning EOI lists? Getting onto their consultant roster unlocks multilateral-funded projects across dozens of countries simultaneously.</div>
+    </div>
+    <span class="badge badge-blue">Key funder</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇵🇭 Asian Development Bank (ADB)</div>
+      <div class="ally-type">Inter-Governmental Organization — Philippines</div>
+      <div class="ally-body">ADB funds major urban infrastructure across South and Southeast Asia. Their project procurement teams source international consultants for ADB-funded projects in Bangladesh, Pakistan, and Central Asia. Introduce SP's post-conflict and disaster-resilience portfolio specifically — ADB actively prioritises these credentials.</div>
+    </div>
+    <span class="badge badge-blue">Asia-Pacific funder</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇲🇾 Urbanice Malaysia / KPKT</div>
+      <div class="ally-type">Inter-Governmental Organization — Federation of Malaysia</div>
+      <div class="ally-body">Malaysia's international urban cooperation body. Could serve as a Southeast Asian regional entry point and introduce SP to regional procurement across Malaysia, Indonesia, and the broader ASEAN urban development ecosystem.</div>
+    </div>
+    <span class="badge badge-amber">SE Asia door</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇹🇷 Marmara Urban Forum / Marmara Municipalities Union (MMU)</div>
+      <div class="ally-type">Local & Regional Government — Republic of Türkiye — attending WUF13</div>
+      <div class="ally-body">Turkey's own municipal network is at WUF13. This is SP's natural networking anchor and social base at the event. Use MMU to host informal side introductions, co-present at sessions, and leverage their diplomatic relationships with Gulf and Central Asian counterparts who already know and trust Turkish institutions.</div>
+    </div>
+    <span class="badge badge-gold">Home base</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇿🇦 Habitat International Coalition + South Africa Delegation</div>
+      <div class="ally-type">Civil Society + National Government — South Africa on UN-Habitat Executive Board</div>
+      <div class="ally-body">Minister Thembi Simelane is personally leading the South African delegation. South Africa is on UN-Habitat boards. Meeting SA's delegation alongside Habitat International Coalition gives SP access to the broader sub-Saharan African housing network through a single conversation.</div>
+    </div>
+    <span class="badge badge-amber">African network</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 5: MUST-MEET -->
+<section id="en-mustmeet">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <h2>Must-Meet List — Confirmed Names</h2>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span>Meetings completed</span>
+      <span id="en-prog-text">0 of 16</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="en-prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- T1 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--green);"></div> Tier 1 — Must Meet Day 1 · Confirmed attending</div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">KS</div>
+    <div>
+      <div class="person-name">H.E. Dr. Khalfan bin Saeed Al-Shuaili</div>
+      <div class="person-role">Minister of Housing and Urban Planning</div>
+      <div class="person-country">🇴🇲 Sultanate of Oman · PhD, University of Glasgow · Architect by training</div>
+      <div class="person-hook"><strong>Open with:</strong> "Your Excellency, we followed Oman's announcements last week — the six new neighbourhood masterplans across North Batinah and Al Buraimi. SP Architects has delivered integrated neighbourhoods under comparable conditions in Turkey. We'd be honoured to discuss how we might contribute to the Sorouh Initiative."</div>
+      <div class="person-hook note">He personally led MIPIM 2026 with 130+ bilateral meetings actively seeking international master planners. He will understand your technical language immediately.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 1</span>
+      <span class="day-tag">Min. Meeting</span>
+    </div>
+  </div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">MA</div>
+    <div>
+      <div class="person-name">H.E. Majed bin Abdullah Al-Hogail</div>
+      <div class="person-role">Minister of Municipalities and Housing</div>
+      <div class="person-country">🇸🇦 Kingdom of Saudi Arabia · Confirmed delegation leader per official Saudi state news</div>
+      <div class="person-hook"><strong>Open with:</strong> "Your Excellency, Saudi Arabia's 2025 architectural character mandate is a direction SP Architects deeply believes in — culturally-rooted design at city scale. We are exploring which Vision 2030 projects fit our expertise and would welcome your guidance on the right entry points."</div>
+      <div class="person-hook note">Also approach King Salman Foundation and AUDI reps who travel with this delegation — three entry points into the Saudi ecosystem from one encounter.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 1</span>
+      <span class="day-tag">Confirmed</span>
+    </div>
+  </div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">FE</div>
+    <div>
+      <div class="person-name">H.E. Fatima Ezzahra El Mansouri</div>
+      <div class="person-role">Minister of National Territory Planning, Urban Planning, Housing and City Policy</div>
+      <div class="person-country">🇲🇦 Kingdom of Morocco · Also Mayor of Marrakech · Land law specialist</div>
+      <div class="person-hook"><strong>Open with:</strong> "Your Excellency, after the 2023 Haouz earthquake, Morocco is rebuilding entire districts in Al Haouz and Taroudant — SP Architects did exactly the same in Kahramanmaraş. Our post-earthquake masterplan experience is directly transferable. With FIFA 2030 also approaching, Morocco is at a critical inflection point."</div>
+      <div class="person-hook note">She is simultaneously managing earthquake reconstruction AND FIFA 2030 urban upgrades — two parallel conversations SP is credentialled for. Very active minister who attends technical discussions personally.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 1</span>
+      <span class="day-tag">Min. Meeting</span>
+    </div>
+  </div>
+
+  <!-- CONNECTORS -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--purple);"></div> Key Connectors — Meet Day 1 Evening · Each opens multiple doors</div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AR</div>
+    <div>
+      <div class="person-name">Anacláudia Rossbach</div>
+      <div class="person-role">Under-Secretary-General & Executive Director, UN-Habitat</div>
+      <div class="person-country">🇧🇷 Brazil / United Nations · Chairs and opens WUF13 · Economist, 20+ years housing experience</div>
+      <div class="person-hook"><strong>Open with:</strong> "SP Architects is a Turkish firm with post-earthquake and post-conflict masterplanning experience — directly aligned with the WUF13 theme. We are connecting with housing ministries who need that expertise. Could UN-Habitat's procurement team advise which country programmes are currently seeking international design consultants?"</div>
+      <div class="person-hook note">She personally meets ministers and financial institutions throughout WUF13. A referral or introduction from her team carries enormous weight with every delegation in the room.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 1 Eve</span>
+      <span class="day-tag">Opening</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AG</div>
+    <div>
+      <div class="person-name">Anar Guliyev</div>
+      <div class="person-role">Chairman, SCUPA / WUF13 National Coordinator</div>
+      <div class="person-country">🇦🇿 Republic of Azerbaijan · Coordinates all ministerial delegations at WUF13</div>
+      <div class="person-hook"><strong>Open with:</strong> "SP Architects has been closely following Azerbaijan's Karabağ reconstruction — it directly parallels our own post-conflict urban rebuild experience in Turkey. We would welcome the opportunity to discuss how our firm might contribute to future phases of reconstruction in the liberated territories."</div>
+      <div class="person-hook note">He coordinates all ministerial delegations — can facilitate introductions to any minister in the room. Azerbaijan's Karabağ reconstruction is WUF13's showcase example, making SP's Turkey parallel a uniquely powerful opening.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 1</span>
+      <span class="day-tag">Host Country</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AU</div>
+    <div>
+      <div class="person-name">AUDI Secretary-General / Representative</div>
+      <div class="person-role">Arab Urban Development Institute</div>
+      <div class="person-country">🇸🇦 Saudi Arabia · Connecting all Arab housing ministries · Attending WUF13 as IGO</div>
+      <div class="person-hook"><strong>Open with:</strong> "AUDI's work connecting Arab urban policy with implementation is the bridge SP Architects needs. We are a Turkish master planning firm with Islamic heritage design experience — strong cultural alignment with Arab markets. Which AUDI member countries are currently most active in seeking international urban design partners?"</div>
+      <div class="person-hook note">One AUDI relationship = potential introductions to Saudi, Bahrain, Palestine, Jordan, Egypt, and all Arab housing ministries. The most powerful multiplier at the event.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 1–2</span>
+      <span class="day-tag">Connector</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">WB</div>
+    <div>
+      <div class="person-name">World Bank Urban Global Practice Rep</div>
+      <div class="person-role">World Bank Group</div>
+      <div class="person-country">🇧🇪 Belgium HQ · Funds Tanzania, Uganda, Bangladesh urban programmes</div>
+      <div class="person-hook"><strong>Open with:</strong> "SP Architects has delivered post-earthquake and post-conflict masterplanning — both contexts the World Bank funds heavily. We'd like to understand how international design firms can be included in World Bank-funded urban planning projects as technical consultants. What is the process for getting onto your EOI lists?"</div>
+      <div class="person-hook note">Getting onto the World Bank consultant EOI rosters unlocks multilateral-funded projects across dozens of countries simultaneously. A high-leverage single conversation.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 2–3</span>
+      <span class="day-tag">Funder</span>
+    </div>
+  </div>
+
+  <!-- T2 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--blue);"></div> Tier 2 — Schedule Bilateral Meetings Days 2–3</div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">UZ</div>
+    <div>
+      <div class="person-name">Head of Delegation — National Committee for Urbanization</div>
+      <div class="person-role">National Committee for Urbanization and Sustainable Housing Market Development</div>
+      <div class="person-country">🇺🇿 Republic of Uzbekistan · Presenting New Tashkent at WUF13</div>
+      <div class="person-hook"><strong>Open with:</strong> "New Tashkent is one of the most ambitious new city programmes in the region. As a Turkish firm we have a deep connection to Central Asian urban tradition. We would very much like to understand how international firms can engage with New Tashkent's procurement process."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 2–3</span>
+      <span class="day-tag">Urban Expo</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">BA</div>
+    <div>
+      <div class="person-name">Ministry Delegation</div>
+      <div class="person-role">Ministry of Housing and Urban Planning</div>
+      <div class="person-country">🇧🇭 Kingdom of Bahrain · Find minister name in Day 1 programme booklet</div>
+      <div class="person-hook"><strong>Open with:</strong> "Bahrain's land constraints make density and compact city design an existential urban challenge. SP Architects has specific experience in transit-oriented masterplans that maximise limited land — we'd welcome a conversation about Bahrain's current planning priorities."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 2–3</span>
+      <span class="day-tag">Bilateral</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">HU</div>
+    <div>
+      <div class="person-name">CMD / Director, International Partnerships</div>
+      <div class="person-role">Housing and Urban Development Corporation (HUDCO)</div>
+      <div class="person-country">🇮🇳 Republic of India · AAA credit rated · Rs 1,00,000 crore state MoU Apr 2026</div>
+      <div class="person-hook"><strong>Open with:</strong> "We noted HUDCO's recent MoUs with NBCC and the Chhattisgarh commitment. SP Architects is a Turkish masterplanning firm experienced in large-scale affordable housing districts. We're keen to understand how an international design partner can contribute through HUDCO's UiWIN programme."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 2–3</span>
+      <span class="day-tag">Bilateral</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">TZ</div>
+    <div>
+      <div class="person-name">Director — Human Settlements / Urban Development</div>
+      <div class="person-role">Ministry of Lands, Housing and Human Settlements Development</div>
+      <div class="person-country">🇹🇿 United Republic of Tanzania · FYDP IV · Zanzibar 5,000 homes announced May 2026</div>
+      <div class="person-hook"><strong>Open with:</strong> "Tanzania's FYDP IV target to reduce informal settlements from 59% to 21% is extraordinary. The scale of formal masterplanning across secondary cities is exactly SP Architects' capability. How can international design firms contribute to this programme?"</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 2–3</span>
+      <span class="day-tag">Bilateral</span>
+    </div>
+  </div>
+
+  <!-- T3 -->
+  <div class="tier-label"><div class="tier-dot" style="background:var(--amber);"></div> Tier 3 — Relationship Seeds, Days 4–5</div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">NG</div>
+    <div>
+      <div class="person-name">Engr. Muttaqha Rabe Darma, PhD</div>
+      <div class="person-role">Minister of Housing and Urban Development</div>
+      <div class="person-country">🇳🇬 Federal Republic of Nigeria · Assumed office April 27, 2026 · WUF13 = his first international event</div>
+      <div class="person-hook"><strong>Open with:</strong> "Minister, congratulations on your appointment. Nigeria's housing challenge is immense and SP Architects is keen to explore how international urban design firms can contribute to Nigeria's masterplanning pipeline, particularly for new housing districts."</div>
+      <div class="person-hook note">⚡ Brand new minister — 17 days in office. Zero existing international firm relationships. First mover advantage is real and available right now.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Days 4–5</span>
+      <span class="day-tag">New minister</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">UG</div>
+    <div>
+      <div class="person-name">Hon. Minister / Director of Physical Planning</div>
+      <div class="person-role">Ministry of Lands, Housing and Urban Development</div>
+      <div class="person-country">🇺🇬 Republic of Uganda · Active UCMID EOI Feb 2026 · 10 cities, 26 municipalities</div>
+      <div class="person-hook"><strong>Open with:</strong> "Uganda's UCMID programme — engineering design consultancy for 10 cities and 26 municipalities — is exactly SP Architects' scope. We noted the EOI published in February 2026. What is the current status of that procurement and how should an international firm engage?"</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 5</span>
+      <span class="day-tag">Active EOI</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">ZW</div>
+    <div>
+      <div class="person-name">Hon. Zhemu Soda</div>
+      <div class="person-role">Minister of National Housing and Social Amenities</div>
+      <div class="person-country">🇿🇼 Republic of Zimbabwe · UN-Habitat Executive Board 2025–2029 · 17 smart cities plan</div>
+      <div class="person-hook"><strong>Open with:</strong> "Zimbabwe's ambition to develop 17 smart cities under Vision 2030 is remarkable. SP Architects brings smart city masterplanning and social housing design experience. We'd welcome a long-term conversation about collaboration as multilateral funding comes through."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 5</span>
+      <span class="day-tag">Long-term</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">MY</div>
+    <div>
+      <div class="person-name">Urbanice Malaysia / KPKT Delegation</div>
+      <div class="person-role">Ministry of Housing and Local Government</div>
+      <div class="person-country">🇲🇾 Federation of Malaysia · Smart city + affordable housing programmes active</div>
+      <div class="person-hook"><strong>Open with:</strong> "Urbanice Malaysia's work on international urban cooperation is very well regarded. SP Architects is exploring partnerships in Southeast Asia — could we discuss how your organisation facilitates introductions to urban development procurement in the region?"</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">Day 4</span>
+      <span class="day-tag">SE Asia</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 6: MESSAGES -->
+<section id="en-messages">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>Opening Conversation Scripts</h2>
+  </div>
+  <p style="font-size:14px; color:var(--ink-muted); margin-bottom:1.5rem;">Each script is built around something specific the minister is actively working on — not a generic introduction. Reference the specific project or programme name to signal that SP has done its homework.</p>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇴🇲 H.E. Dr. Khalfan Al-Shuaili — Oman</div>
+      <div class="msg-context">Minister of Housing and Urban Planning · Architect + PhD Glasgow</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Your Excellency, we followed Oman's announcements last week — the six new neighbourhood masterplans across North Batinah, Al Buraimi, and A'Dakhiliyah."</span> SP Architects has delivered integrated neighbourhood masterplans in Turkey under tight timelines, including post-earthquake reconstruction where speed and cultural sensitivity were both non-negotiable. We understand the challenge of transit-oriented design that preserves national identity — it is at the heart of what we do. We would be honoured to discuss how we might contribute to the Sorouh Initiative.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> Naming the specific provinces from last week's MIPIM announcement signals genuine research. His engineering background means he will want to quickly move to a technical conversation — be ready to discuss density targets and infrastructure integration.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇸🇦 H.E. Majed Al-Hogail — Saudi Arabia</div>
+      <div class="msg-context">Minister of Municipalities and Housing · Confirmed delegation leader</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Your Excellency, the 2025 Saudi architectural character mandate is a direction SP Architects deeply believes in."</span> Culturally-rooted design at city scale — ensuring that a city grows at speed while staying true to who it is — is at the heart of our practice. We believe Turkish firms with Islamic architectural heritage are uniquely positioned to deliver on this mandate in ways that purely Western firms cannot. We are exploring which Vision 2030 projects are the right fit for our scale and expertise, and would welcome your guidance on the appropriate entry points.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> The 2025 royal decree is a policy he owns and championed. Naming it specifically, and framing SP as uniquely qualified to deliver it, positions SP as a partner who understands his priorities — not just a firm seeking a contract.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇲🇦 H.E. Fatima Ezzahra El Mansouri — Morocco</div>
+      <div class="msg-context">Minister of National Territory Planning · Also Mayor of Marrakech</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Your Excellency, following the 2023 Haouz earthquake, Morocco is rebuilding entire districts in Al Haouz and Taroudant — SP Architects was doing exactly the same in Kahramanmaraş at the same time."</span> Our post-earthquake masterplan experience is directly transferable — the challenge of rebuilding rapidly while respecting community memory and cultural fabric is one we have lived. With FIFA 2030 also accelerating urban development in four Moroccan cities, we see Morocco at a unique inflection point, and we would welcome a conversation about how SP might contribute.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> No other firm in Baku can claim parallel 2023 earthquake reconstruction experience. This is not a sales pitch — it is a credential that is uniquely and verifiably real. She will recognise it immediately.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇺🇿 Uzbekistan Delegation — New Tashkent</div>
+      <div class="msg-context">National Committee for Urbanization · Presenting New Tashkent at WUF13</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"We were very interested to see New Tashkent being presented here at WUF13 — it is one of the most ambitious new city programmes in the entire region."</span> As a Turkish firm, we feel a deep connection to the Central Asian urban tradition and have delivered new township masterplans that balance modern infrastructure with cultural continuity. We would very much like to understand how international firms can engage with New Tashkent's procurement process — whether as lead masterplanner, specialist consultant, or design partner.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> Acknowledging that you saw their presentation at WUF13 itself is a powerful signal — it means you came to them, not the reverse. The Turkish-Central Asian cultural proximity point is genuine and recognised by Uzbek officials.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇦🇿 Anar Guliyev — WUF13 National Coordinator</div>
+      <div class="msg-context">Chairman, SCUPA · Host Country · Coordinates all ministerial delegations</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"SP Architects has been closely following Azerbaijan's Karabağ reconstruction work — it is directly parallel to our own post-conflict urban rebuild experience in Turkey after the earthquakes and in the areas affected by the conflict."</span> We understand the specific challenge of rebuilding cities quickly without erasing their identity. Azerbaijan's model being showcased here at WUF13 resonates very deeply with our practice. We would be honoured to discuss how SP might contribute to future phases of reconstruction in the liberated territories — and would welcome an introduction to relevant delegations where our expertise might be of value.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> He is the host country coordinator — he knows every delegation and can make introductions to anyone. Connecting SP to the Karabağ story means he will naturally think of SP whenever post-conflict reconstruction comes up in conversations with other ministers throughout the week.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇳🇬 Engr. Muttaqha Rabe Darma — Nigeria</div>
+      <div class="msg-context">Brand new Minister of Housing and Urban Development · In office 17 days · First international event</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Minister, congratulations on your recent appointment — Nigeria's housing and urban development challenge is one of the most significant in Africa, and it requires exactly the kind of bold, decisive leadership you are bringing."</span> SP Architects is a Turkish master planning firm with experience in large-scale housing districts and urban masterplanning. We are keen to understand how international design firms can contribute to Nigeria's pipeline — particularly for new housing district masterplanning and urban regeneration. We would welcome the opportunity to build a relationship as you shape the ministry's international partnerships.
+    </div>
+    <div class="msg-note"><strong>Why this works:</strong> He is 17 days into the job. No other firm has a relationship with him yet. A warm, respectful congratulation that quickly pivots to substance will be remembered. He was nominated after Dangiwa — who was an architect — so he likely understands design firms. Confirm his background before approaching.</div>
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+
+<section id="en-floorplan">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>Your Stand &amp; The Floor — Urban Expo</h2>
+  </div>
+  <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1.25rem;">SP Architects is at stand <strong>D09</strong> in the Private Sector zone. Below is your exact position relative to every priority target — use this to plan your daily walk-arounds.</p>
+
+  <div style="background:var(--ink);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);margin-bottom:10px;">📍 SP Architects — Stand D09</div>
+    <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.7;">Private Sector zone, D row. You are surrounded by other Turkish and regional private sector exhibitors. Your immediate neighbours include <strong style="color:#fff;">Erhan LTD (D20)</strong> and <strong style="color:#fff;">ModulX LLC (D10)</strong>. The D row sits directly behind the B row national government pavilions — meaning Saudi Arabia (B08), Morocco (B10), Uzbekistan (B04) and South Africa (B06) are all within a 30-second walk from your stand.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;">
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--green);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">30 sec walk from D09</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇸🇦 <strong>Saudi Arabia</strong> — B08</div>
+        <div>🇲🇦 <strong>Morocco</strong> — B10</div>
+        <div>🇺🇿 <strong>Uzbekistan</strong> — B04</div>
+        <div>🇿🇦 <strong>South Africa</strong> — B06</div>
+        <div>🇲🇾 <strong>Malaysia (Urbanice)</strong> — B05</div>
+        <div>🇨🇦 <strong>Canada</strong> — B09</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">2 min walk from D09</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇳🇬 <strong>Nigeria</strong> — A33</div>
+        <div>🇺🇬 <strong>Uganda</strong> — A48</div>
+        <div>🇹🇿 <strong>Tanzania</strong> — A02</div>
+        <div>🇿🇼 <strong>Zimbabwe</strong> — A24</div>
+        <div>🇧🇭 <strong>Bahrain</strong> — A34</div>
+        <div>🇮🇳 <strong>India HUDCO</strong> — C11</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">Key connectors nearby</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇸🇦 <strong>AUDI</strong> — A09</div>
+        <div>🇧🇪 <strong>World Bank</strong> — A10</div>
+        <div>🇵🇭 <strong>ADB</strong> — A19</div>
+        <div>🇸🇦 <strong>King Salman Foundation</strong> — (B row)</div>
+        <div>🇹🇷 <strong>Marmara MMU</strong> — A28</div>
+        <div>🇰🇪 <strong>UN-Habitat</strong> — B03</div>
+      </div>
+    </div>
+    <div style="background:var(--gold-faint);border:1px solid var(--gold-light);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">⚡ Saudi priority note</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.7;">You know the Riyadh team but need to deepen the relationship. Saudi stand <strong>B08</strong> is your single most important daily visit — go once in the morning (minister/senior level) and once in the afternoon (technical/project team). Two visits, two different conversations. The afternoon team is where procurement happens.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--paper-mid);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;">
+    <div style="font-size:12px;font-weight:500;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;font-family:'DM Mono',monospace;">Türkiye presence at WUF13</div>
+    <div style="font-size:13px;color:var(--ink-soft);line-height:1.7;">Turkey's Ministry of Environment, Urbanisation and Climate Change is at <strong>B02</strong> — right next to Saudi. Marmara MMU is at <strong>A28</strong>. Union of Engineers and Architects of the Turkic World is at <strong>A49</strong>. Use these as your social anchors — they can walk you into Arab delegations informally.</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="en-sessions">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2>Sessions SP Must Attend</h2>
+  </div>
+  <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1.25rem;">Selected from the official WUF13 programme. These are the sessions where your target contacts will be speaking, where your competitors will be networking, and where the conversations you want to join are happening.</p>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;">
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;border:1px solid rgba(27,122,90,0.2);">🔴 Must attend</div>
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;border:1px solid rgba(32,86,160,0.2);">🔵 High value</div>
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;border:1px solid rgba(176,91,16,0.2);">🟡 Recommended</div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Sunday 17 May — Day 1</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Ministerial Meeting on the New Urban Agenda</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:00–17:30 · Dialogue Room A · All day</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Must attend</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">All Housing Ministers make formal statements. Take notes on every country's stated priorities — this is live intelligence for your follow-up conversations. <strong>Oman, Saudi, Morocco, Bahrain, Uzbekistan, Nigeria all speak here.</strong> Sit, listen, and note who says what about their housing priorities.</div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Monday 18 May — Day 2</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Opening Ceremony + Leaders' Statements</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">12:30–17:00 · Ceremony Hall</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 High value</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">High visibility moment. All ministers are in the room. Good for spotting delegations and making first eye-contact introductions at coffee breaks.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Regional African Ministerial Meeting (OE 01)</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:00–11:00 · Roundtable Room A · UN-Habitat, African Union, UNECA</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Nigeria / Tanzania / Uganda</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">All African housing ministers will be here together. Position yourself at the door at 11:00 as they exit. Best opportunity for a warm "I heard your statement" introduction with Nigeria's new minister.</div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Tuesday 19 May — Day 3</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Dialogue: The Global Housing Crisis — What's the Plan?</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Dialogue Room A</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Must attend</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">This is the flagship plenary dialogue. All ministers, financiers and practitioners together. SP must be here to understand the policy language being used — this shapes every conversation you have for the rest of the week.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 12-01: Why affordable housing needs fewer cars — Marmara Municipalities Union</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">12:00–13:30 · Multipurpose 12</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;white-space:nowrap;">🟡 Home base</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Marmara MMU (A28) is your Turkish anchor. Be visible and supportive here — it signals to all attending delegations that SP is part of the Turkish urban community. Good for soft introductions.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 14-01: Beyond Shelter Data Driven Housing — Al Madinah Region Development Authority, Saudi Arabia</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">12:00–13:30 · Multipurpose 14</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Saudi — deepening</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Saudi's Al Madinah Region Development Authority is running this session. You already know the Riyadh team — this is your chance to meet the Al Madinah side of Vision 2030. Introduce SP specifically in the context of heritage-sensitive masterplanning.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">State of Arab Cities Report 2025 (OE 05) — AUDI</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:00 · Think Pod · Arab Urban Development Institute</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 AUDI connector</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">AUDI is presenting their flagship Arab Cities report. Be in the room — it's your best opportunity to engage the AUDI team in a session context (vs cold approach at the stand). Ask a question about masterplanning procurement models.</div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Wednesday 20 May — Day 4</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Dialogue: Transforming Informal Settlements + Dialogue: The Social and Economic Power of Housing</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Dialogue Rooms A &amp; B</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Must attend — pick one</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Split your team. Room A (Informal Settlements) has the Tanzania, Uganda, Nigeria angle. Room B (Social and Economic Power) has the Saudi, Morocco, Gulf angle. Have one person in each and compare notes over lunch.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 08-04: Transit Oriented Development (TOD) and Urban Green Spaces — Japan MLIT</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">12:00–13:30 · Multipurpose 08</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;white-space:nowrap;">🟡 Japan partnership</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Japan MLIT (A26) is running a TOD session — SP's direct expertise. Attend, contribute if possible, and introduce yourself to MLIT reps for co-bidding partnership on JICA-funded Central Asia and Africa projects.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">SDG-C 04: More Than a Roof — Morocco Ministry of National Territory Planning</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:30 · SDGs in Action C</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Morocco — Minister speaking</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Morocco's Ministry is presenting. El Mansouri or a senior representative will be here. Attend, listen carefully, and approach directly after — referencing what they said in the session is far stronger than a cold introduction.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 03-04: Effective Financing — Bahrain Ministry of Housing and Urban Planning</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:30 · Multipurpose 03</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Bahrain minister here</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Bahrain's Ministry is leading this financing session. Perfect opportunity to meet their team in a working context — much warmer than a pavilion cold visit.</div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Thursday 21 May — Day 5</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Dialogue: Housing at the Centre of Crisis Recovery and Reconstruction</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Dialogue Room A</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 SP's home territory</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">This is the single most relevant dialogue for SP's expertise — post-earthquake, post-conflict housing reconstruction. Every minister with a crisis recovery mandate (Morocco, Somalia, Azerbaijan, Ukraine) will be engaged here. If SP can speak or contribute a Q&amp;A point, do it. Your Kahramanmaraş and Karabağ-parallel work is directly on-point.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">AE 14-03: Designing Development Programs in Conflict Zones — Saudi SDRPY</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Multipurpose Room 14</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Saudi — conflict zone design</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Saudi Development and Reconstruction Program for Yemen (SDRPY) is running a training on designing in conflict zones — SP's exact specialisation. SDRPY is a major procurer of international urban design. Be in this room. Introduce SP afterwards as the firm that did this in Turkey and Karabağ.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">VC-B 07: Scaling Inclusive Urban Transformation — Marmara Municipalities Union</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">12:00–13:30 · Voices from Cities B</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;white-space:nowrap;">🟡 Turkish presence</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Marmara MMU second session. Be visible here as part of the Turkish delegation — it reinforces SP's identity as a credible Turkish urban design firm to any attending international delegations.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 10-09: Enhancing Public-Private Partnerships in Housing — Gulf Cooperation Council</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">16:00–17:30 · Multipurpose 10</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Gulf PPP — Saudi/Bahrain/Oman</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">The GCC Secretariat is running this PPP session — all Gulf states present. For strengthening the Riyadh relationship specifically, this is the best session conversation-starter: "We attended your PPP session — SP has delivered public-private masterplan partnerships in Turkey at significant scale."</div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Friday 22 May — Day 6</div>
+
+  <div style="background:var(--ink);border-radius:8px;padding:1rem 1.25rem;">
+    <div style="font-size:14px;font-weight:600;color:var(--gold);margin-bottom:6px;">Closing Ceremony + Baku Call to Action — 15:00–17:00 · Ceremony Hall</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">The Baku Call to Action document is released today. Get a copy immediately. This document sets global housing policy language for the next 3 years — every follow-up email SP sends after this event should echo its exact language. It signals to ministries that SP understands the policy context they operate in.</div>
+  </div>
+</section>
+
+
+<footer>
+  <span>SP Architects</span> · WUF13 Participant Guide · Updated 15 May 2026 · Baku, Azerbaijan
+</footer>
+</div>
+
+<!-- ── TURKISH CONTENT ── -->
+<div id="content-tr">
+<nav>
+  <div class="logo">SP Architects</div>
+  <a href="#tr-overview">Genel Bakış</a>
+  <a href="#tr-strategy">SP Stratejisi</a>
+  <a href="#tr-countries">Ülkeler</a>
+  <a href="#tr-allies">Bağlantılar</a>
+  <a href="#tr-mustmeet">Görüşülecekler</a>
+  <a href="#tr-messages">Konuşma Metinleri</a>
+  <a href="#tr-floorplan">Fuar Planı</a><a href="#tr-sessions">Oturumlar</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Stratejik Hazırlık Dosyası · Mayıs 2026</div>
+  <h1>WUF13 Bakü<br><span>Stratejik Saha Rehberi</span></h1>
+  <p class="hero-sub">SP Architects için 13. Dünya Kent Forumu Katılım ve Bağlantı Rehberi — 17–22 Mayıs 2026, Bakü, Azerbaycan</p>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="n">178</div><div class="l">Temsil edilen<br>ülke sayısı</div></div>
+    <div class="hero-stat"><div class="n">30B</div><div class="l">Kayıtlı<br>katılımcı</div></div>
+    <div class="hero-stat"><div class="n">11</div><div class="l">Konut<br>bakanlığı</div></div>
+    <div class="hero-stat"><div class="n">16</div><div class="l">Tespit edilen<br>kilit isim</div></div>
+    <div class="hero-stat"><div class="n">3</div><div class="l">1. Öncelik<br>hedef</div></div>
+  </div>
+</div>
+
+<!-- BÖLÜM 1: GENEL BAKIŞ -->
+<section id="tr-overview">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <h2>Etkinliğe Genel Bakış</h2>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-cell"><div class="n gold">WUF13</div><div class="l">13. Dünya Kent Forumu<br>Kafkasya'da ilk kez Bakü'de düzenleniyor</div></div>
+    <div class="stat-cell"><div class="n">17–22</div><div class="l">Mayıs 2026<br>6 tam gün, Bakü Olimpiyat Stadyumu</div></div>
+    <div class="stat-cell"><div class="n">%13,3</div><div class="l">İş dünyası katılımı<br>WUF tarihinin en yüksek oranı</div></div>
+    <div class="stat-cell"><div class="n">370+</div><div class="l">Ortak etkinlik<br>1. Gün Bakanlık Toplantısı dahil</div></div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-box">
+      <h3>Tema ve Odak</h3>
+      <p>"Dünyayı Barındırmak: Güvenli ve Dayanıklı Şehirler ve Topluluklar" — forum, konutu küresel kentsel politikanın merkezine yerleştiriyor. Yeni Kent Gündeminin 20 yıllık zaman çizelgesinin tam ortasında gerçekleşen WUF13, konut yatırım ve politikasını 2036'ya kadar şekillendirecek.</p>
+      <div class="tag-cloud">
+        <span class="tag gold">Konut krizi</span>
+        <span class="tag gold">Çatışma sonrası yeniden yapım</span>
+        <span class="tag gold">İklim dayanıklılığı</span>
+        <span class="tag">Enformel yerleşimler</span>
+        <span class="tag">Konut finansmanı</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Bakanlık Toplantısı — 1. Gün (17 Mayıs)</h3>
+      <p>Tamamen yeni bir özellik: Azerbaycan başkanlığında düzenlenen tam günlük Bakanlık Toplantısı, tüm Konut Bakanlarını 1. Günde bir araya getiriyor. Bakanlık açıklamalarının ardından üç tematik panel gerçekleşiyor. Toplantı, 2036'ya kadar küresel konut politikasını belirleyecek <strong>Bakü Eylem Çağrısı</strong> ile sonuçlanıyor.</p>
+      <div class="tag-cloud">
+        <span class="tag green">Tüm konut bakanları bir arada</span>
+        <span class="tag green">1. Gün önceliği</span>
+        <span class="tag green">Bakü Eylem Çağrısı</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Kent Fuarı — 41 Ülke Pavyonu</h3>
+      <p>41 ülkenin ulusal pavyonu Bakü Olimpiyat Stadyumu'nda yer alıyor. Pavyonlar yalnızca bakanlar değil, proje düzeyindeki ekipler tarafından da kadrolanıyor — bu da teknik, ihale düzeyinde konuşmalar için ideal bir ortam sağlıyor. Suudi Arabistan, Umman, Özbekistan ve Fas pavyonlarını 3–4. Günlerde ziyaret edin.</p>
+      <div class="tag-cloud">
+        <span class="tag blue">Teknik görüşmeler</span>
+        <span class="tag blue">Proje ekipleri mevcut</span>
+        <span class="tag blue">3–4. Günler</span>
+      </div>
+    </div>
+    <div class="overview-box">
+      <h3>Azerbaycan — Karabağ Bağlantısı</h3>
+      <p>Azerbaycan, WUF13'te Karabağ ve Doğu Zengezur yeniden yapım çalışmalarını çatışma sonrası kentsel canlanmanın küresel modeli olarak sunuyor. SP Architects'in Türkiye'deki deneyimi doğrudan bir paralel oluşturuyor — bu, ev sahibi ülkeyle eşsiz bir konuşma kapısı açıyor.</p>
+      <div class="tag-cloud">
+        <span class="tag amber">SP'nin doğrudan eşdeğeri</span>
+        <span class="tag amber">Ev sahibi ülke bağlantısı</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BÖLÜM 2: SP STRATEJİSİ -->
+<section id="tr-strategy">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <h2>SP Architects Rekabet Konumu</h2>
+  </div>
+
+  <div class="advantage-grid">
+    <div class="adv-card">
+      <div class="icon">🏗️</div>
+      <h4>Deprem Sonrası Ana Plan</h4>
+      <p>2023 depremi sonrasında Kahramanmaraş'ta kanıtlanmış teslimat — Fas ve etkinlikteki diğer afet kurtarma ülkeleri için doğrudan ve doğrulanabilir bir referans. Bakü'deki hiçbir firma SP'nin söyleyebildiklerini söyleyemez.</p>
+    </div>
+    <div class="adv-card">
+      <div class="icon">🕊️</div>
+      <h4>Çatışma Sonrası Kentsel Yeniden Yapım</h4>
+      <p>Karabağ'a paralel yeniden yapım portföyü. Körfez, Orta Asya ve Afrika kurtarma pazarları için benzersiz bir farklılaştırıcı. Azerbaycan, bu uzmanlık türünü WUF13'te küresel bir model olarak sunuyor.</p>
+    </div>
+    <div class="adv-card">
+      <div class="icon">🕌</div>
+      <h4>İslami ve Miras Odaklı Tasarım</h4>
+      <p>Türk kimliği ve kültürel uyum, genel Batılı firmaların yetersiz kaldığı Körfez ve Kuzey Afrika kapılarını açıyor. Suudi Arabistan'ın 2025 kraliyet kararnamesi özellikle bölgesel mimari kimlik gerektiriyor.</p>
+    </div>
+  </div>
+
+  <div class="alert">
+    <h4>⚡ İki Kritik Gelişme — Şimdi Harekete Geçin</h4>
+    <p><strong>Nijerya'nın yepyeni bir bakanı var.</strong> Müh. Muttaqha Rabe Darma, 27 Nisan 2026'da göreve başladı — WUF13 açılmadan yalnızca 17 gün önce. Bu, onun bakan olarak ilk uluslararası etkinliği. Uluslararası mimarlık firmaları henüz onunla hiçbir ilişki kurmadı. Önceki bakan Dangiwa (kendisi de bir mimar) kabine değişikliğiyle görevden alındı. Tanıştığınız ilk ciddi firma olmak için fırsat penceresi şu an açık.</p>
+    <p><strong>Azerbaycan'ın Karabağ yeniden yapımı</strong> WUF13'te bir vitrin olarak sunuluyor. WUF13 Ulusal Koordinatörü Anar Guliyev ile görüşmeniz kritik — SP'nin Türkiye çatışma sonrası deneyimi doğrudan bir paraleldir. Bu, ev sahibi ülkeyle güçlü bir bağ kurma fırsatı ve salondaki her delegasyona aynı anda iletilen bir referanstır.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BÖLÜM 3: ÜLKELER -->
+<section id="tr-countries">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <h2>Ülke Bazında Analiz</h2>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line" style="background:var(--green);"></div> Kademe 1 — Aktif bütçe, acil fırsat</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--blue);"></div> Kademe 2 — Güçlü boru hattı, 6–18 ay</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--amber);"></div> Kademe 3 — Toparlanma aşaması, 1–3 yıl</div>
+    <div class="legend-item"><div class="legend-line" style="background:var(--ink-faint);"></div> Kademe 4 — Yalnızca ilişki kurma</div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--green);"></div> Kademe 1 — 1. Günde Görüşülmeli, Aktif Bütçe</div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇴🇲</span>
+        <div>
+          <div class="cc-name">Umman</div>
+          <div class="cc-ministry">Konut ve Şehir Planlama Bakanlığı</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">1,28 Milyar$+ Aktif</span>
+        <span class="badge badge-gold">1. Gün Önceliği</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Sultan Haitham City (100.000 sakin), A'Thuraya sahil kenti, Al Khuwair Downtown yenileme, Future Salalah City — bunlara ek olarak dört valilik genelinde 1,4 milyon metrekareyi kapsayan altı yeni entegre konut masterplanı alanı açıklandı. Tümü uluslararası firmalardan teklif alıyor. Umman, MIPIM 2026'da özellikle uluslararası master planlamacı arayan 130'u aşkın ikili görüşme yaptı. En erişilebilir, açık ve aktif ihalesi olan Kademe 1 hedefi.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Umman, miras ile modern tasarımın entegrasyonunu arıyor. Karabağ yeniden yapım portföyünüz (baskı altında bağlama duyarlı planlama) doğrudan bir uyum sağlıyor. Bakan Al-Shuaili, Glasgow'dan doktora yapmış bir mimar — teknik dilinizi anında anlayacak.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">Yeni kent planlaması</span>
+        <span class="tag">Sahil geliştirme</span>
+        <span class="tag">Entegre mahalleler</span>
+        <span class="tag">Sorouh Girişimi</span>
+        <span class="tag">TOD tasarımı</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇸🇦</span>
+        <div>
+          <div class="cc-name">Suudi Arabistan</div>
+          <div class="cc-ministry">Belediyeler ve Konut Bakanlığı</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">100 Milyar$+ Vizyon 2030</span>
+        <span class="badge badge-gold">Bakan Katılımı Onaylandı</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Uluslararası master planlamacı arayan mega projeler: New Murabba (19 km², 50 milyar$), King Salman Park (16,9 km²), Diriyah Kapısı (63 milyar$), Misk Şehri (3,4 km²). 2025 kraliyet kararnamesi tüm büyük inşaatlarda bölgesel mimari kimliği zorunlu kılıyor. 17 Suudi şehri Ulusal Kent Politikası gözden geçirmesinde. Bakan Majed Al-Hogail, resmi devlet ajansına göre Suudi WUF13 heyetine bizzat liderlik ediyor.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> 2025 mimari kimlik kararnamesi, kültüre duyarlı Türk firmaları için özel bir kapı açıyor. AUDI ve Kral Selman Vakfı da WUF13'te — üç farklı giriş noktası. Albert Speer + Partner şu an Misk Şehri'nin master planlamacısı; SP bu slorun açık olduğu diğer projeleri hedeflemeli.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">Mega proje kentleşmesi</span>
+        <span class="tag">Yeni merkez ilçeler</span>
+        <span class="tag">Miras-modern entegrasyon</span>
+        <span class="tag">Kral Selman Vakfı (WUF13)</span>
+        <span class="tag">AUDI (WUF13)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="country-card t1">
+    <div class="cc-header">
+      <div class="cc-flag-name">
+        <span class="cc-flag">🇲🇦</span>
+        <div>
+          <div class="cc-name">Fas</div>
+          <div class="cc-ministry">Ulusal Toprak Planlama, Şehircilik, Konut ve Şehir Politikası Bakanlığı</div>
+        </div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-green">FIFA 2030 + Deprem Yeniden Yapımı</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>2023 Haouz depremi sonrası Al Haouz, Şişava ve Taroudant illerindeki konut yeniden yapımı sürüyor. FIFA 2030 Dünya Kupası, Kazablanka, Rabat, Marakeş ve Agadir'de kentsel gelişimi hızlandırıyor. Bouregreg Vadisi yenileme projesi (40 km²) devam ediyor. Ulusal düzeyde %90'ın üzerinde şehir planlama kapsamına ulaşıldı. Bakan El Mansouri aynı zamanda Marakeş Belediye Başkanı — son derece aktif bir lider.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Türkiye'deki deprem müdahale deneyiminiz doğrudan, rakipsiz bir referans. Fas, SP'nin Kahramanmaraş'ta ortaya koyduğu şeyi — hızlı ve kültüre saygılı yeniden yapımı — tam olarak ihtiyaç duyuyor. Bakü'de başka hiçbir firma bu özgül paraleli iddia edemez.</div>
+      <div class="tag-cloud" style="margin-top:10px;">
+        <span class="tag">Deprem sonrası yeniden yapım</span>
+        <span class="tag">FIFA 2030 kentsel yükseltme</span>
+        <span class="tag">Karma kullanımlı dönüşüm</span>
+        <span class="tag">Sosyal konut</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--blue);"></div> Kademe 2 — 2–3. Günlerde İkili Görüşme Planla</div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇧🇭</span>
+        <div><div class="cc-name">Bahreyn</div><div class="cc-ministry">Konut ve Şehir Planlama Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">Körfez bütçesi onaylı</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Kentsel baskının yoğunlaştığı küçük ada devleti; Vizyon 2030 konut reformu sürüyor. Sınırlı arazi varlığı, yoğunluk, toplu taşıma odaklı tasarım ve karma kullanım master planlamasını ön plana çıkarıyor. Körfez finansman havuzları mevcut ve konut projeleri için onaylanmış durumda.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Kompakt kent planlaması ve karma kullanımlı bölge tasarımı. Bakan adını 1. Gün bakanlık programı broşüründen öğrenin.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇺🇿</span>
+        <div><div class="cc-name">Özbekistan</div><div class="cc-ministry">Kentleşme ve Sürdürülebilir Konut Pazarı Geliştirme Ulusal Komitesi</div></div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-blue">Yeni Taşkent WUF13'te sunuluyor</span>
+        <span class="badge badge-blue">Devlet destekli</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Yeni Taşkent, WUF13'te amiral gemisi proje olarak sunuluyor. Özbekistan kent geliştirme ihalelerini agresif biçimde uluslararasılaştırıyor; özellikle uluslararası master planlamacı arıyor. Türk firmalar, ortak Türk mirası sayesinde kültürel ve dilsel yakınlık avantajına sahip.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Türk firmaları doğal bir tercih — ortak kültürel ve dilsel zemin. Yeni Taşkent master plan ihalesi hedef konuşma. Kent Fuarı'nda Özbekistan pavyonunu 3–4. Günlerde ziyaret edin.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇮🇳</span>
+        <div><div class="cc-name">Hindistan</div><div class="cc-ministry">Konut ve Kent Geliştirme Kurumu (HUDCO)</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">100.000 Crore Rs MoU (Nis. 2026)</span></div>
+    </div>
+    <div class="cc-body">
+      <p>HUDCO, Nisan 2026'da NBCC ile 2 adet MoU imzaladı. Chhattisgarh kentsel projeleri için 100.000 Crore Rs taahhüdü. AAA kredi notu. UiWIN programı özellikle Akıllı Şehir ve konut projeleri için uluslararası ortaklar arıyor. Hindistan'ın kentsel gelişim ölçeği devasa.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> SP'yi HUDCO'nun proje finans modeli içinde teknik tasarım ortağı olarak konumlandırın. UiWIN programı uluslararası firmalar için spesifik giriş noktası.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇯🇵</span>
+        <div><div class="cc-name">Japonya</div><div class="cc-ministry">Arazi, Altyapı, Ulaşım ve Turizm Bakanlığı (MLIT)</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">Stratejik ortaklık fırsatı</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Japonya, SP'nin doğrudan iş yapacağı bir pazar değil. Asıl fırsat şu: Japonya, ODA (Resmi Kalkınma Yardımı) aracılığıyla Orta Asya ve Afrika'daki büyük projeleri finanse ediyor. Bir Japon firma veya MLIT ortaklığı, SP'nin tek başına kazanamayacağı JICA ve ADB fonlu projelerde birlikte teklif verme imkânı sunabilir.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Özbekistan, Bangladeş ve Doğu Afrika'daki JICA fonlu projelerde ortak teklif veya alt danışmanlık düzenlemesi arayın. Bu, SP'nin yeni pazarlarda bağımsız sözleşme kazanmasına gerek kalmadan erişimini çarpar.</div>
+    </div>
+  </div>
+
+  <div class="country-card t2">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇹🇿</span>
+        <div><div class="cc-name">Tanzanya</div><div class="cc-ministry">Arazi, Konut ve İnsan Yerleşimleri Geliştirme Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-blue">FYDP IV — 8 Trilyon TZS amiral projesi</span></div>
+    </div>
+    <div class="cc-body">
+      <p>FYDP IV (2026–2031), enformel yerleşimleri arazinin %59'undan %21'ine indirmeyi hedefliyor — Afrika'nın en iddialı kentsel dönüşüm planlarından biri. 3,8 milyon birim konut açığı. Zanzibar, Mayıs 2026'da 5.000 yeni konut hedefini açıkladı. TUGNe 2050 amiral gemisi projesi 8 trilyon TZS yatırım çerçevesine sahip. Dünya Bankası ve ADB finansmanı aktif olarak akıyor.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Tanzanya'nın ikincil şehirlerindeki resmi master plan ölçeği tam olarak SP'nin uzmanlık alanı. Dünya Bankası finansmanı, uluslararası tasarım danışmanı uygunluğunu onaylamaktadır.</div>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--amber);"></div> Kademe 3 — İlişki Tohumu, 4–5. Günler</div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇳🇬</span>
+        <div><div class="cc-name">Nijerya</div><div class="cc-ministry">Federal Konut ve Kentsel Gelişim Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-amber">Yeni bakan — göreve başlayalı 3 hafta</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Yeni Bakan Müh. Muttaqha Rabe Darma, 27 Nisan'da göreve başladı — WUF13 onun ilk uluslararası etkinliği. Yeniden Umut Konut Programı devam ediyor. Lagos, Abuja ve ikincil şehirler kentsel yeniden yapılanma sürecinde. Bütçe mevcut ancak ihale süreçleri uzun — bu bir tohum ekme görüşmesi.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Yeni bir bakanla tanışan ilk ciddi uluslararası mimarlık firması olmak nadir ve değerli bir konumdur. Henüz yabancı firmalarla hiçbir ilişkisi yok. Bu pencereyi kullanın.</div>
+    </div>
+  </div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇺🇬</span>
+        <div><div class="cc-name">Uganda</div><div class="cc-ministry">Arazi, Konut ve Kentsel Gelişim Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges">
+        <span class="badge badge-amber">Aktif EOI — Şub. 2026</span>
+        <span class="badge badge-amber">10 şehir + 26 belediye</span>
+      </div>
+    </div>
+    <div class="cc-body">
+      <p>Büyük Kampala Metropoliten Master Planı devam ediyor. Şubat 2026'da 10 şehir ve 26 belediyede iklim dayanıklı mühendislik tasarım danışmanlığı için aktif EOI (Ön Nitelendirme) yayımlandı (UCMID programı, Dünya Bankası finansmanlı). Kentsel kalkınma bütçesi 3 yılda %250 artışla büyüyor.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Aktif UCMID EOI'si somut bir ihale fırsatı. Uluslararası tasarım danışmanlarının uygunluğunu ve sürecini doğrudan sorun.</div>
+    </div>
+  </div>
+
+  <div class="country-card t3">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇿🇼</span>
+        <div><div class="cc-name">Zimbabve</div><div class="cc-ministry">Ulusal Konut ve Sosyal Olanaklar Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-amber">UN-Habitat Yönetim Kurulu 2025–2029</span></div>
+    </div>
+    <div class="cc-body">
+      <p>220.000 konut birimi hedefi. Vizyon 2030 kapsamında 17 akıllı şehir planı. 1,25 milyon birim konut açığı. Ulusal bütçe şu an sınırlı (19,3 milyon $ konut ödeneği) ancak Zimbabve 2025–2029 döneminde UN-Habitat Yönetim Kurulu'nda yer aldığından çok taraflı finansman akışı bekleniyor. Bakan Zhemu Soda yakın zamanda Rus konut mevkidaşıyla görüştü — uluslararası katılıma açık.</p>
+      <div class="cc-sp"><strong>SP avantajı:</strong> Uzun vadeli bir ilişki. Şimdi tohumu ekin, çok taraflı finansman akarken 12–24 ay içinde ilişkiyi büyütün.</div>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--ink-faint);"></div> Kademe 4 — Yalnızca İlişki Kurma</div>
+
+  <div class="country-card t4">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇧🇩</span>
+        <div><div class="cc-name">Bangladeş</div><div class="cc-ministry">Konut ve Kamu İşleri Bakanlığı</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-gray">ADB/Dünya Bankası finansmanlı</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Dakka, büyük bir konut açığına sahip dünyanın en hızlı büyüyen megaşehirlerinden biri. Dünya Bankası ve ADB önemli fonlar aktarıyor. Uzun vadeli boru hattı için ADB fonlu planlama projeleri hakkında delegasyonla görüşün.</p>
+    </div>
+  </div>
+
+  <div class="country-card t4">
+    <div class="cc-header">
+      <div class="cc-flag-name"><span class="cc-flag">🇲🇾</span>
+        <div><div class="cc-name">Malezya</div><div class="cc-ministry">Urbanice Malezya / Konut ve Yerel Yönetim Bakanlığı (KPKT)</div></div>
+      </div>
+      <div class="cc-badges"><span class="badge badge-gray">Güneydoğu Asya kapısı</span></div>
+    </div>
+    <div class="cc-body">
+      <p>Malezya'nın uluslararası kentsel işbirliği kuruluşu Urbanice, aktif uygun fiyatlı konut ve akıllı şehir programlarına sahip. SP için Güneydoğu Asya'ya bölgesel bir giriş noktası işlevi görebilir.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BÖLÜM 4: BAĞLANTI NOKTALARI -->
+<section id="tr-allies">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <h2>Kilit Hükümet Dışı Bağlantılar</h2>
+  </div>
+  <p style="font-size:14px; color:var(--ink-muted); margin-bottom:1.5rem;">Bu kuruluşlar bağlantı noktası, fon kaynağı ve çarpan olarak işlev görüyor. AUDI ile kurulacak tek bir ilişki, 20'den fazla Arap bakanlığına giriş sağlıyor. Dünya Bankası ekibiyle görüşmek, Afrika ve Asya genelindeki danışman ihale süreçlerine erişim sunuyor.</p>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇸🇦 Arap Kentsel Gelişim Enstitüsü (AUDI)</div>
+      <div class="ally-type">Hükümetlerarası Kuruluş — Suudi Arabistan — WUF13'te mevcut</div>
+      <div class="ally-body">Tüm Arap devletleri için kent politikası bölgesel merkezi. Körfez konut bakanlıkları için tedarik danışmanı ve bağlantı noktası. AUDI ile tek görüşme = 20'den fazla Arap ülkesi konut karar alıcısına giriş imkânı. Özellikle sorun: AUDI üyesi ülkelerden hangisi şu an uluslararası master planlamacı arayışında?</div>
+    </div>
+    <span class="badge badge-green">Öncelikli bağlantı</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇸🇦 Kral Selman Vakfı</div>
+      <div class="ally-type">Vakıf — Suudi Arabistan — WUF13'te mevcut</div>
+      <div class="ally-body">Suudi Arabistan'ın Vizyon 2030 kentsel projelerine doğrudan bağlı kültür ve kalkınma vakfı. PIF finansmanlı mega projelere (NEOM bileşenleri, Diriyah, Qiddiya) normalde son derece güç olan bir kapı açabilir. SP'nin tasarımda kültürel duyarlılık vurgusunu paylaşın — bu, Vakfın misyonuyla örtüşüyor.</div>
+    </div>
+    <span class="badge badge-green">Öncelikli bağlantı</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇧🇪 Dünya Bankası Grubu</div>
+      <div class="ally-type">Hükümetlerarası Kuruluş — WUF13'te mevcut</div>
+      <div class="ally-body">Tanzanya FYDP IV, Uganda UCMID ve Bangladeş kentsel programlarını finanse ediyor — SP'nin uluslararası tasarım danışmanı olarak nitelenebileceği alanlar. Dünya Bankası Kent ekibine doğrudan sorun: uluslararası bir mimarlık firması Dünya Bankası finansmanlı projelerin EOI listelerine nasıl dahil olur? Bu danışman listelerine girmek, onlarca ülkede projelere erişim sağlıyor.</div>
+    </div>
+    <span class="badge badge-blue">Kilit fon kaynağı</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇵🇭 Asya Kalkınma Bankası (ADB)</div>
+      <div class="ally-type">Hükümetlerarası Kuruluş — Filipinler</div>
+      <div class="ally-body">Güney ve Güneydoğu Asya'da büyük kentsel altyapıyı finanse ediyor. Proje tedarik ekipleri ADB finansmanlı projelere uluslararası danışman temin ediyor. SP'nin çatışma sonrası ve afet dayanıklılığı portföyünü özellikle sunun — ADB bu referansları aktif olarak arıyor.</div>
+    </div>
+    <span class="badge badge-blue">Asya-Pasifik fonu</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇹🇷 Marmara Kent Forumu / Marmara Belediyeler Birliği (MBB)</div>
+      <div class="ally-type">Yerel ve Bölgesel Yönetim — Türkiye — WUF13'te mevcut</div>
+      <div class="ally-body">Türkiye'nin kendi belediye ağı WUF13'te. Bu, SP'nin doğal ağ kurma çapası ve sosyal üssü. MBB'yi gayri resmi tanışma toplantıları düzenlemek, oturumlarda ortak sunum yapmak ve Körfez ile Orta Asya muhataplarıyla var olan diplomatik ilişkilerini SP'ye açmak için kullanın.</div>
+    </div>
+    <span class="badge badge-gold">Ana üs</span>
+  </div>
+
+  <div class="ally-card">
+    <div>
+      <div class="ally-name">🇿🇦 Uluslararası Habitat Koalisyonu + Güney Afrika Heyeti</div>
+      <div class="ally-type">Sivil Toplum + Ulusal Hükümet — Güney Afrika UN-Habitat Yönetim Kurulu'nda</div>
+      <div class="ally-body">Bakan Thembi Simelane Güney Afrika heyetine bizzat liderlik ediyor. Güney Afrika UN-Habitat kurullarında yer alıyor. SA heyetiyle Uluslararası Habitat Koalisyonu'nun yanında gerçekleştirilecek bir görüşme, tek bir konuşmayla daha geniş Sahra Altı Afrika konut ağına erişim sağlıyor.</div>
+    </div>
+    <span class="badge badge-amber">Afrika ağı</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BÖLÜM 5: GÖRÜŞÜLECEKLER -->
+<section id="tr-mustmeet">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <h2>Görülmesi Zorunlu İsimler — Teyit Edilmiş</h2>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span>Tamamlanan görüşmeler</span>
+      <span id="tr-prog-text">0 / 16</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="tr-prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--green);"></div> Kademe 1 — 1. Gün Mutlaka Görüşülmeli · Katılım Onaylandı</div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">KS</div>
+    <div>
+      <div class="person-name">Sayın Dr. Khalfan bin Saeed Al-Shuaili</div>
+      <div class="person-role">Konut ve Şehir Planlama Bakanı</div>
+      <div class="person-country">🇴🇲 Umman Sultanlığı · Doktora, Glasgow Üniversitesi · Mimar kökenli</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Sayın Bakanım, Umman'ın geçen hafta açıkladığı altı yeni mahalle masterplanını — Kuzey Batına, Al Buraimi ve A'Dakhiliyah'takiler dahil — yakından takip ettik. SP Architects, Türkiye'de benzer koşullarda entegre mahalle masterplanları teslim etti, deprem sonrası yeniden yapım da dahil. Sorouh Girişimi'ne nasıl katkıda bulunabileceğimizi konuşmaktan onur duyarız."</div>
+      <div class="person-hook note">MIPIM 2026'da uluslararası master planlamacı arayan 130'dan fazla ikili görüşme yaptı. Teknik dilinizi anında anlayacak.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1. Gün</span>
+      <span class="day-tag">Bakanlık Top.</span>
+    </div>
+  </div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">MA</div>
+    <div>
+      <div class="person-name">Sayın Majed bin Abdullah Al-Hogail</div>
+      <div class="person-role">Belediyeler ve Konut Bakanı</div>
+      <div class="person-country">🇸🇦 Suudi Arabistan Krallığı · Resmi devlet haberleriyle teyit edilen heyet lideri</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Sayın Bakanım, Suudi Arabistan'ın 2025 mimari kimlik kararnamesi, SP Architects'in derinden inandığı bir yön — kültüre dayalı tasarım, şehir ölçeğinde. İslam mimari mirasına sahip Türk firmaları bu kararnameyi Batılı firmalardan çok daha iyi hayata geçirebilir. Vizyon 2030 projelerinde doğru giriş noktalarını belirlemek için görüşünüzü almak isteriz."</div>
+      <div class="person-hook note">Bu heyet içinde Kral Selman Vakfı ve AUDI temsilcilerine de ulaşın — Suudi ekosistemine üç farklı giriş noktası.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1. Gün</span>
+      <span class="day-tag">Onaylandı</span>
+    </div>
+  </div>
+
+  <div class="person-row pt1">
+    <div class="avatar av-green">FE</div>
+    <div>
+      <div class="person-name">Sayın Fatima Ezzahra El Mansouri</div>
+      <div class="person-role">Ulusal Toprak Planlama, Şehircilik, Konut ve Şehir Politikası Bakanı</div>
+      <div class="person-country">🇲🇦 Fas Krallığı · Aynı zamanda Marakeş Büyükşehir Belediye Başkanı · Arazi hukuku uzmanı</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Sayın Bakanım, 2023 Haouz depremi sonrasında Fas, Al Haouz ve Taroudant'taki mahalleleri yeniden inşa ediyor — SP Architects aynı dönemde Kahramanmaraş'ta aynısını yapıyordu. Deprem sonrası masterplan deneyimimiz doğrudan aktarılabilir nitelikte. FIFA 2030 da yaklaştığı için Fas'ın kritik bir dönüm noktasında olduğunu görüyoruz."</div>
+      <div class="person-hook note">Deprem yeniden yapımı VE FIFA 2030 kentsel yükseltmesini aynı anda yönetiyor — SP'nin referans sunabileceği iki paralel dossier. Çok aktif ve teknik görüşmelere bizzat katılan bir bakan.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1. Gün</span>
+      <span class="day-tag">Bakanlık Top.</span>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--purple);"></div> Kilit Bağlantılar — 1. Gün Akşamı · Her biri birden fazla kapı açıyor</div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AR</div>
+    <div>
+      <div class="person-name">Anacláudia Rossbach</div>
+      <div class="person-role">Genel Sekreter Yardımcısı ve Yönetici Direktör, UN-Habitat</div>
+      <div class="person-country">🇧🇷 Brezilya / Birleşmiş Milletler · WUF13'ü yönetiyor · Ekonomist, 20+ yıl konut deneyimi</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "SP Architects, deprem ve çatışma sonrası masterplanlama deneyimine sahip Türk bir firma — doğrudan WUF13 temasıyla örtüşüyor. Bu uzmanlığa ihtiyaç duyan konut bakanlıklarıyla bağlantı kurmak için buradayız. UN-Habitat'ın ülke programları arasında şu an uluslararası tasarım danışmanı arayanlar hangileri?"</div>
+      <div class="person-hook note">WUF13 boyunca bakanlar ve finans kurumlarıyla bizzat görüşüyor. Onun ekibinden bir tanışma veya yönlendirme, her delegasyonda büyük ağırlık taşır.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1. Gün Akşam</span>
+      <span class="day-tag">Açılış</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AG</div>
+    <div>
+      <div class="person-name">Anar Guliyev</div>
+      <div class="person-role">SCUPA Başkanı / WUF13 Ulusal Koordinatörü</div>
+      <div class="person-country">🇦🇿 Azerbaycan Cumhuriyeti · Tüm bakanlık heyetlerini koordine ediyor</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "SP Architects, Azerbaycan'ın Karabağ yeniden yapım çalışmalarını yakından takip etti — bu, Türkiye'deki çatışma sonrası kentsel yeniden yapım deneyimimizle doğrudan örtüşüyor. Hızlı ama kimliğini silmeyen bir yeniden yapım yapmanın özgül zorluğunu biz de yaşadık. Kurtuluş topraklarındaki yeniden yapımın ilerleyen aşamalarına SP olarak nasıl katkıda bulunabileceğimizi konuşmaktan onur duyarız."</div>
+      <div class="person-hook note">Tüm bakanlık heyetlerini koordine ediyor — salonundaki herkese tanışma sağlayabilir. Karabağ hikayesiyle SP'yi ilişkilendirmesi, o haftaki her çatışma sonrası konuşmada SP'yi aklına getirecek.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1. Gün</span>
+      <span class="day-tag">Ev sahibi ülke</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">AU</div>
+    <div>
+      <div class="person-name">Genel Sekreter / Temsilci — AUDI</div>
+      <div class="person-role">Arap Kentsel Gelişim Enstitüsü</div>
+      <div class="person-country">🇸🇦 Suudi Arabistan · Tüm Arap konut bakanlıklarını bağlıyor · WUF13'te IGO olarak mevcut</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "AUDI'nin Arap kent politikasını uygulamaya bağlama çalışması, SP Architects'in ihtiyaç duyduğu tam köprü niteliğinde. İslami mimari miras deneyimine sahip Türk bir firma olarak Arap pazarlarıyla güçlü bir kültürel uyumumuz var. AUDI üyesi ülkelerden hangisi şu an uluslararası kentsel tasarım ortağı arıyor?"</div>
+      <div class="person-hook note">Tek bir AUDI ilişkisi = Suudi, Bahreyn, Filistin, Ürdün, Mısır ve tüm Arap bakanlıklarına giriş. Etkinlikteki en güçlü çarpan.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">1–2. Gün</span>
+      <span class="day-tag">Bağlantı</span>
+    </div>
+  </div>
+
+  <div class="person-row ptc">
+    <div class="avatar av-purple">WB</div>
+    <div>
+      <div class="person-name">Dünya Bankası Kent Küresel Uygulama Temsilcisi</div>
+      <div class="person-role">Dünya Bankası Grubu</div>
+      <div class="person-country">🇧🇪 Belçika — Tanzanya, Uganda, Bangladeş kentsel programlarını finanse ediyor</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "SP Architects, Dünya Bankası'nın Afrika ve Asya'da yoğun biçimde finanse ettiği iki bağlam olan deprem ve çatışma sonrasında masterplanlama teslim etti. Uluslararası tasarım firmalarının Dünya Bankası finansmanlı kentsel planlama projelerine teknik danışman olarak nasıl dahil edilebildiğini anlamak istiyoruz. EOI listelerine girme süreci nasıl işliyor?"</div>
+      <div class="person-hook note">Dünya Bankası danışman EOI listelerine girmek, onlarca ülkede projelere eş anlı erişim anlamına gelir. Yüksek kaldıraçlı tek bir görüşme.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">2–3. Gün</span>
+      <span class="day-tag">Fon kaynağı</span>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--blue);"></div> Kademe 2 — 2–3. Günlerde İkili Görüşme Planla</div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">UZ</div>
+    <div>
+      <div class="person-name">Heyet Başkanı — Kentleşme Ulusal Komitesi</div>
+      <div class="person-role">Kentleşme ve Sürdürülebilir Konut Pazarı Geliştirme Ulusal Komitesi</div>
+      <div class="person-country">🇺🇿 Özbekistan Cumhuriyeti · Yeni Taşkent WUF13'te sunuluyor</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Yeni Taşkent'in WUF13'te sunulduğunu gördük — bölgenin en iddialı yeni kent programlarından biri. Türk bir firma olarak Orta Asya kent geleneğiyle derin bir bağımız var. Yeni Taşkent'in ihale sürecine uluslararası firmaların nasıl dahil olabileceğini anlamak istiyoruz."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">2–3. Gün</span>
+      <span class="day-tag">Kent Fuarı</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">BA</div>
+    <div>
+      <div class="person-name">Bakanlık Heyeti</div>
+      <div class="person-role">Konut ve Şehir Planlama Bakanlığı</div>
+      <div class="person-country">🇧🇭 Bahreyn Krallığı · Bakan adını 1. Gün program broşüründen teyit edin</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Bahreyn'in arazi kısıtları, yoğunluğu ve karma kullanımlı tasarımı varoluşsal bir kentsel zorunluluk hâline getiriyor. SP Architects, sınırlı araziyi en iyi şekilde değerlendiren TOD masterplanları konusunda spesifik deneyime sahip. Bahreyn'in mevcut planlama öncelikleri hakkında konuşmaktan memnuniyet duyarız."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">2–3. Gün</span>
+      <span class="day-tag">İkili görüşme</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">HU</div>
+    <div>
+      <div class="person-name">Genel Müdür / Uluslararası Ortaklıklar Direktörü</div>
+      <div class="person-role">Konut ve Kent Geliştirme Kurumu (HUDCO)</div>
+      <div class="person-country">🇮🇳 Hindistan Cumhuriyeti · AAA kredi notu · 100.000 Crore Rs devlet MoU Nis. 2026</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "HUDCO'nun NBCC ile son MoU'larını ve Chhattisgarh taahhüdünü takip ettik. SP Architects, büyük ölçekli uygun fiyatlı konut bölgelerinde deneyimli Türk bir masterplanlama firması. HUDCO'nun UiWIN programı çerçevesinde uluslararası bir tasarım ortağının nasıl çalışabileceğini anlamak istiyoruz."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">2–3. Gün</span>
+      <span class="day-tag">İkili görüşme</span>
+    </div>
+  </div>
+
+  <div class="person-row pt2">
+    <div class="avatar av-blue">TZ</div>
+    <div>
+      <div class="person-name">İnsan Yerleşimleri / Kentsel Kalkınma Direktörü</div>
+      <div class="person-role">Arazi, Konut ve İnsan Yerleşimleri Geliştirme Bakanlığı</div>
+      <div class="person-country">🇹🇿 Tanzanya Birleşik Cumhuriyeti · FYDP IV · Zanzibar 5.000 konut hedefi Mayıs 2026'da açıklandı</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Tanzanya'nın FYDP IV hedefi — enformel yerleşimleri 2031'e kadar %59'dan %21'e indirmek — son derece iddialı. İkincil şehirlerde gereken resmi masterplanlama ölçeği tam olarak SP Architects'in uzmanlık alanı. Uluslararası tasarım firmalarının bu programa nasıl katkı sağlayabileceğini konuşmak isteriz."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">2–3. Gün</span>
+      <span class="day-tag">İkili görüşme</span>
+    </div>
+  </div>
+
+  <div class="tier-label"><div class="tier-dot" style="background:var(--amber);"></div> Kademe 3 — İlişki Tohumu, 4–5. Günler</div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">NG</div>
+    <div>
+      <div class="person-name">Müh. Muttaqha Rabe Darma, PhD</div>
+      <div class="person-role">Konut ve Kentsel Gelişim Bakanı (27 Nisan 2026'da göreve başladı — yepyeni)</div>
+      <div class="person-country">🇳🇬 Federal Nijerya Cumhuriyeti · Göreve başlayalı 17 gün · WUF13 ilk uluslararası etkinliği</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Bakanım, atamanız için tebrikler. Nijerya'nın konut ve kentsel gelişim sorunu Afrika'nın en kritiklerinden biri; SP Architects, uluslararası tasarım firmalarının Nijerya'nın masterplanlama boru hattına nasıl katkıda bulunabileceğini anlamak istiyor. Bakanlığın uluslararası ortaklıklarını şekillendirirken sizinle uzun soluklu bir ilişki kurmayı ümit ediyoruz."</div>
+      <div class="person-hook note">⚡ Göreve başlayalı 17 gün. Henüz hiçbir uluslararası firma onunla ilişki kurmadı. İlk ciddi firma olma fırsatı şu an mevcut.</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">4–5. Gün</span>
+      <span class="day-tag">Yeni bakan</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">UG</div>
+    <div>
+      <div class="person-name">Sayın Bakan / Fiziksel Planlama Direktörü</div>
+      <div class="person-role">Arazi, Konut ve Kentsel Gelişim Bakanlığı</div>
+      <div class="person-country">🇺🇬 Uganda Cumhuriyeti · Aktif UCMID EOI Şub. 2026 · 10 şehir, 26 belediye</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Uganda'nın UCMID programı — 10 şehir ve 26 belediyede mühendislik tasarım danışmanlığı — SP Architects'in tam kapsam alanı. Şubat 2026'da yayımlanan EOI'yi inceledik. Bu ihalenin mevcut durumu nedir ve uluslararası bir firma nasıl pozisyon almalı?"</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">5. Gün</span>
+      <span class="day-tag">Aktif EOI</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">ZW</div>
+    <div>
+      <div class="person-name">Sayın Zhemu Soda</div>
+      <div class="person-role">Ulusal Konut ve Sosyal Olanaklar Bakanı</div>
+      <div class="person-country">🇿🇼 Zimbabve Cumhuriyeti · UN-Habitat Yönetim Kurulu 2025–2029 · 17 akıllı şehir planı</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Zimbabve'nin Vizyon 2030 kapsamında 17 akıllı şehir geliştirme hedefi son derece iddialı. SP Architects, akıllı kent masterplanlama ve sosyal konut tasarımı deneyimi sunuyor. Çok taraflı finansman akarken uzun vadeli bir işbirliği konuşmaya açığız."</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">5. Gün</span>
+      <span class="day-tag">Uzun vadeli</span>
+    </div>
+  </div>
+
+  <div class="person-row pt3">
+    <div class="avatar av-amber">MY</div>
+    <div>
+      <div class="person-name">Urbanice Malezya / KPKT Heyeti</div>
+      <div class="person-role">Konut ve Yerel Yönetim Bakanlığı</div>
+      <div class="person-country">🇲🇾 Malezya Federasyonu · Akıllı şehir ve uygun fiyatlı konut programları aktif</div>
+      <div class="person-hook"><strong>Açılış cümlesi:</strong> "Urbanice Malezya'nın uluslararası kentsel işbirliği alanındaki çalışmaları çok değerli. SP Architects Güneydoğu Asya'da ortaklıklar arıyor — kuruluşunuzun bölgedeki kentsel gelişim ihalelerine nasıl köprü kurduğunu konuşabilir miyiz?"</div>
+    </div>
+    <div class="check-wrap">
+      <div class="check-btn" onclick="toggleCheck(this)">&#9633;</div>
+      <span class="day-tag">4. Gün</span>
+      <span class="day-tag">GDA kapısı</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BÖLÜM 6: KONUŞMA METİNLERİ -->
+<section id="tr-messages">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>Açılış Konuşma Metinleri</h2>
+  </div>
+  <p style="font-size:14px; color:var(--ink-muted); margin-bottom:1.5rem;">Her metin, bakanın aktif olarak yönettiği spesifik bir proje veya politika etrafında kurulmuştur — genel bir tanıtım değil. Spesifik proje adını söylemek, SP'nin araştırma yaptığını gösterir.</p>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇴🇲 Dr. Khalfan Al-Shuaili — Umman</div>
+      <div class="msg-context">Konut ve Şehir Planlama Bakanı · Mimar + Glasgow Doktorası</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Sayın Bakanım, Umman'ın geçen hafta açıkladığı altı yeni mahalle masterplanını — Kuzey Batına, Al Buraimi ve A'Dakhiliyah'takiler dahil — yakından takip ettik."</span> SP Architects, Türkiye'de dar zaman dilimleri içinde entegre mahalle masterplanları teslim etti; deprem sonrası yeniden yapım da buna dahil. Ulusal kimliği koruyan TOD tasarımı zorluğu çalışmamızın özünde yer alıyor. Sorouh Girişimi'ne katkıda bulunabilme fırsatını konuşmaktan onur duyarız.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> Geçen haftanın MIPIM duyurusundaki spesifik il adlarını söylemek, gerçek araştırma yapıldığını anlatıyor. Mühendislik geçmişi, hızla teknik konuşmaya geçmek isteyeceği anlamına geliyor — masterplan yoğunluk hedefleri ve altyapı entegrasyonunu tartışmaya hazır olun.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇸🇦 Majed Al-Hogail — Suudi Arabistan</div>
+      <div class="msg-context">Belediyeler ve Konut Bakanı · Teyit edilmiş heyet lideri</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Sayın Bakanım, Suudi Arabistan'ın 2025 mimari kimlik kararnamesi, SP Architects'in derinden inandığı bir yön."</span> Şehrin hızla büyürken kim olduğuna sadık kalmasını sağlamak — kültüre dayalı tasarım, şehir ölçeğinde. İslam mimari mirası olan Türk firmaların bu kararnamenin gerekliliklerini salt Batılı firmalardan çok daha iyi karşılayabileceğine inanıyoruz. Vizyon 2030 projelerinde SP'nin uzmanlık ve ölçeğine uygun girişimleri belirlemek için görüşünüzü almak istiyoruz.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> 2025 kararnamesi, onun sahiplendiği ve savunduğu bir politika. Bunu ismiyle anmak ve SP'yi onu hayata geçirmeye özgün biçimde uygun olarak konumlandırmak, SP'yi sözleşme arayan bir firma değil, önceliklerini anlayan bir ortak olarak gösteriyor.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇲🇦 Fatima Ezzahra El Mansouri — Fas</div>
+      <div class="msg-context">Ulusal Toprak Planlama, Şehircilik ve Konut Bakanı · Aynı zamanda Marakeş Belediye Başkanı</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Sayın Bakanım, 2023 Haouz depremi sonrasında Fas, Al Haouz ve Taroudant'taki mahalleleri yeniden inşa ediyor — SP Architects aynı dönemde Kahramanmaraş'ta aynısını yapıyordu."</span> Deprem sonrası masterplanlama deneyimimiz doğrudan aktarılabilir nitelikte — hızlı yeniden yapım yaparken topluluk belleğine ve kültürel dokuya saygı gösterme zorluğunu bizzat yaşadık. FIFA 2030'un dört Fas şehrinde kentsel gelişimi hızlandırdığı bu dönemde, SP'nin nasıl katkıda bulunabileceğini konuşmaktan memnuniyet duyarız.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> Bakü'deki hiçbir başka firma 2023 deprem yeniden yapım deneyimini iddia edemez. Bu bir satış konuşması değil — benzersiz ve doğrulanabilir bir referans. Bunu anında tanıyacak.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇺🇿 Özbekistan Heyeti — Yeni Taşkent</div>
+      <div class="msg-context">Kentleşme Ulusal Komitesi · WUF13'te Yeni Taşkent sunuluyor</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"WUF13'te Yeni Taşkent'in sunulduğunu gördük — bölgenin en iddialı yeni kent programlarından biri."</span> Türk bir firma olarak Orta Asya kentsel geleneğiyle derin bir bağımız var; modern altyapı ile kültürel süreklilik arasında denge kuran yeni mahalle masterplanları teslim ettik. Yeni Taşkent'in ihale sürecine uluslararası firmaların nasıl dahil olabileceğini — ana masterplanlamacı, uzman danışman veya tasarım ortağı olarak — anlamak istiyoruz.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> WUF13'teki sunumlarından haberdar olduğunuzu söylemek güçlü bir sinyal — onlara siz gittiniz, tersine değil. Türk-Orta Asya kültürel yakınlık noktası gerçek ve Özbek yetkililer tarafından tanınan bir gerçektir.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇦🇿 Anar Guliyev — WUF13 Ulusal Koordinatörü</div>
+      <div class="msg-context">SCUPA Başkanı · Ev sahibi ülke · Tüm bakanlık heyetlerini koordine ediyor</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"SP Architects, Azerbaycan'ın Karabağ yeniden yapım çalışmalarını yakından takip etti — bu, Türkiye'deki çatışma ve deprem sonrası kentsel yeniden yapım deneyimimizle doğrudan örtüşüyor."</span> Şehirleri kimliklerini silmeden hızla yeniden inşa etmenin özgül zorluğunu biz de yaşadık. Azerbaycan'ın burada WUF13'te model olarak sunulan yaklaşımı çalışmamızda derin yankı uyandırıyor. Kurtuluş topraklarındaki yeniden yapımın ilerleyen aşamalarına SP'nin katkısını konuşmaktan onur duyarız; uzmanlığımızın değer yaratabileceği delegasyonlara da tanışma sağlarsanız çok minnettar oluruz.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> Ev sahibi ülke koordinatörü — salonundaki herkese tanışma sağlayabilir. SP'yi Karabağ hikayesiyle ilişkilendirmesi, haftanın geri kalanında çatışma sonrası yeniden yapım her konuşulduğunda SP'yi aklına getirecek.</div>
+  </div>
+
+  <div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-to">🇳🇬 Müh. Muttaqha Rabe Darma — Nijerya</div>
+      <div class="msg-context">Yeni Konut ve Kentsel Gelişim Bakanı · Görevde 17 gün · İlk uluslararası etkinlik</div>
+    </div>
+    <div class="msg-body">
+      <span class="hook-phrase">"Bakanım, atamanız için tebrikler — Nijerya'nın konut ve kentsel gelişim sorunu Afrika'nın en kritiklerinden biri ve bu, cesur ve kararlı bir liderlik gerektiriyor."</span> SP Architects, büyük ölçekli konut bölgeleri ve kentsel masterplanlama deneyimine sahip Türk bir firma. Uluslararası tasarım firmalarının Nijerya'nın boru hattına — özellikle yeni konut bölgesi masterplanlaması ve kentsel dönüşüm alanlarında — nasıl katkıda bulunabileceğini anlamak istiyoruz. Bakanlığın uluslararası ortaklıklarını şekillendirirken sizinle ilişki kurmak bizim için değerli.
+    </div>
+    <div class="msg-note"><strong>Neden işe yarıyor:</strong> Görevde 17 gün. Henüz onunla ilişki kuran uluslararası firma yok. İçtenlikle tebrik edip hızla özü yakalamak akılda kalır. Selefi Dangiwa bir mimardı — bu bakanlığın uluslararası mimarlık firmalarına açık olduğunu gösteriyor. Yaklaşmadan önce geçmişini teyit edin.</div>
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+
+<section id="tr-floorplan">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>Standınız ve Fuar Alanı — Urban Expo</h2>
+  </div>
+  <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1.25rem;">SP Architects, Özel Sektör bölgesinde <strong>D09</strong> numaralı stantta yer alıyor. Aşağıda her öncelikli hedefe göre tam konumunuz yer alıyor — günlük tur planlamanız için kullanın.</p>
+
+  <div style="background:var(--ink);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);margin-bottom:10px;">📍 SP Architects — Stand D09</div>
+    <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.7;">Özel Sektör bölgesi, D sırası. Hemen yanınızda diğer Türk ve bölgesel özel sektör katılımcıları var: <strong style="color:#fff;">Erhan LTD (D20)</strong> ve <strong style="color:#fff;">ModulX LLC (D10)</strong>. D sırası, ulusal hükümet pavyonlarının bulunduğu B sırasının hemen gerisinde yer alıyor — bu da Suudi Arabistan (B08), Fas (B10), Özbekistan (B04) ve Güney Afrika'nın (B06) standınıza 30 saniyelik yürüme mesafesinde olduğu anlamına geliyor.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;">
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--green);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">D09'dan 30 saniye</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇸🇦 <strong>Suudi Arabistan</strong> — B08</div>
+        <div>🇲🇦 <strong>Fas</strong> — B10</div>
+        <div>🇺🇿 <strong>Özbekistan</strong> — B04</div>
+        <div>🇿🇦 <strong>Güney Afrika</strong> — B06</div>
+        <div>🇲🇾 <strong>Malezya (Urbanice)</strong> — B05</div>
+        <div>🇨🇦 <strong>Kanada</strong> — B09</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">D09'dan 2 dakika</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇳🇬 <strong>Nijerya</strong> — A33</div>
+        <div>🇺🇬 <strong>Uganda</strong> — A48</div>
+        <div>🇹🇿 <strong>Tanzanya</strong> — A02</div>
+        <div>🇿🇼 <strong>Zimbabve</strong> — A24</div>
+        <div>🇧🇭 <strong>Bahreyn</strong> — A34</div>
+        <div>🇮🇳 <strong>Hindistan HUDCO</strong> — C11</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">Yakındaki kilit bağlantılar</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">
+        <div>🇸🇦 <strong>AUDI</strong> — A09</div>
+        <div>🇧🇪 <strong>Dünya Bankası</strong> — A10</div>
+        <div>🇵🇭 <strong>ADB</strong> — A19</div>
+        <div>🇸🇦 <strong>Kral Selman Vakfı</strong> — (B sırası)</div>
+        <div>🇹🇷 <strong>Marmara MBB</strong> — A28</div>
+        <div>🇰🇪 <strong>UN-Habitat</strong> — B03</div>
+      </div>
+    </div>
+    <div style="background:var(--gold-faint);border:1px solid var(--gold-light);border-radius:8px;padding:1rem 1.1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;">⚡ Riyad öncelik notu</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.7;">Riyad ekibini tanıyorsunuz ama ilişkiyi güçlendirmeniz gerekiyor. Suudi standı <strong>B08</strong>, günlük en önemli ziyaretiniz — sabah bir kez (bakan/üst düzey seviye), öğleden sonra bir kez (teknik/proje ekibi). İki ziyaret, iki farklı konuşma. Öğleden sonraki ekip, ihalelerin gerçekten işlendiği yerdir.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--paper-mid);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;">
+    <div style="font-size:12px;font-weight:500;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;font-family:'DM Mono',monospace;">WUF13'teki Türkiye varlığı</div>
+    <div style="font-size:13px;color:var(--ink-soft);line-height:1.7;">Türkiye Çevre, Şehircilik ve İklim Değişikliği Bakanlığı <strong>B02</strong>'de — Suudi'nin hemen yanında. Marmara MBB <strong>A28</strong>'de. Türk Dünyası Mühendis ve Mimarlar Birliği <strong>A49</strong>'da. Bunları sosyal çapanız olarak kullanın — Arap delegasyonlarına gayri resmi tanışma sağlayabilirler.</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="tr-sessions">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2>Katılmanız Gereken Oturumlar</h2>
+  </div>
+  <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1.25rem;">Resmi WUF13 programından seçilmiştir. Hedef kişilerinizin konuştuğu, rakiplerinizin ağ kurduğu ve katılmak istediğiniz konuşmaların gerçekleştiği oturumlar bunlar.</p>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;">
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;border:1px solid rgba(27,122,90,0.2);">🔴 Mutlaka katılın</div>
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;border:1px solid rgba(32,86,160,0.2);">🔵 Yüksek değer</div>
+    <div style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;border:1px solid rgba(176,91,16,0.2);">🟡 Tavsiye edilir</div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Pazar 17 Mayıs — 1. Gün</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Yeni Kent Gündemi Bakanlık Toplantısı</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:00–17:30 · Diyalog Odası A · Tüm gün</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Mutlaka katılın</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Tüm Konut Bakanları resmi açıklama yapıyor. Her ülkenin belirttiği öncelikleri not alın — takip görüşmeleriniz için son derece değerli bilgi. <strong>Umman, Suudi, Fas, Bahreyn, Özbekistan, Nijerya hepsi burada konuşuyor.</strong></div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Pazartesi 18 Mayıs — 2. Gün</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Bölgesel Afrika Bakanlık Toplantısı (OE 01)</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:00–11:00 · Yuvarlak Masa Odası A</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Nijerya / Tanzanya / Uganda</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Tüm Afrika konut bakanları bir arada. 11:00'de çıkışta konumlanın. Nijerya'nın yeni bakanıyla "açıklamanızı duydum" açılışı için en iyi fırsat.</div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Salı 19 Mayıs — 3. Gün</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Diyalog: Küresel Konut Krizi — Plan Nedir?</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Diyalog Odası A</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Mutlaka katılın</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Haftanın ana pleneri. Burada kullanılan politika dilini öğrenmek, haftanın geri kalanındaki tüm konuşmalarınızı şekillendirir.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Arap Şehirleri Raporu 2025 (OE 05) — AUDI</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:00 · Think Pod</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:600;white-space:nowrap;">🟡 AUDI bağlantısı</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">AUDI amiral gemisi raporunu sunuyor. Oturumda AUDI ekibiyle tanışmak, standa soğuk yaklaşmaktan çok daha güçlü. Master plan ihale modellerine dair bir soru sorun.</div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Çarşamba 20 Mayıs — 4. Gün</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">SDG-C 04: Çatıdan Fazlası — Fas Bakanlığı sunumu</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:30 · SDGs in Action C</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Fas Bakanlığı konuşuyor</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Fas Bakanlığı sunuyor. Oturumdan sonra "az önce duyduklarınıza" atıfla doğrudan yaklaşmak, soğuk tanıtımdan çok daha etkili.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 03-04: Etkili Finansman — Bahreyn Konut ve Şehir Planlama Bakanlığı</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">14:00–15:30 · Multipurpose 03</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Bahreyn bakanlığı burada</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Bahreyn Bakanlığı bu finansman oturumunu yönetiyor. Pavyona soğuk ziyaretten çok daha sıcak bir çalışma bağlamında tanışma fırsatı.</div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Perşembe 21 Mayıs — 5. Gün</div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">Diyalog: Kriz Kurtarma ve Yeniden Yapımın Merkezinde Konut</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Diyalog Odası A</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 SP'nin uzmanlık alanı</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">SP'nin uzmanlığı için en doğrudan diyalog — deprem sonrası ve çatışma sonrası konut yeniden yapımı. Mümkünse söz alın veya soru sorun. Kahramanmaraş ve Karabağ-paralel çalışmanız tam burada konuşuluyor.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">AE 14-03: Çatışma Bölgelerinde Kalkınma Programı Tasarımı — Suudi SDRPY</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">09:30–11:30 · Multipurpose Odası 14</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;white-space:nowrap;">🔴 Suudi — çatışma bölgesi tasarımı</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">Suudi Arabistan Yemen Kalkınma Programı (SDRPY), SP'nin tam uzmanlık alanında bir eğitim veriyor. Bu odada olun. Oturumdan sonra SP'yi Türkiye ve Karabağ'da bunu yapan firma olarak tanıtın. SDRPY büyük bir uluslararası kentsel tasarım alıcısı.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">NE 10-09: Konut Projelerinde Kamu-Özel Ortaklıkları — Körfez İşbirliği Konseyi</div>
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">16:00–17:30 · Multipurpose 10</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:600;white-space:nowrap;">🔵 Körfez KÖO — Riyad güçlendirme</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6;border-left:2px solid var(--border-strong);padding-left:10px;">GCC Genel Sekreterliği bu KÖO oturumunu yönetiyor — tüm Körfez ülkeleri mevcut. Özellikle Riyad ilişkisini güçlendirmek için ideal konuşma başlangıcı: "SP, Türkiye'de önemli ölçekte kamu-özel masterplan ortaklıkları hayata geçirdi."</div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);padding:0.5rem 0;margin:1.25rem 0 0.6rem;border-bottom:1px solid var(--border);">Cuma 22 Mayıs — 6. Gün</div>
+
+  <div style="background:var(--ink);border-radius:8px;padding:1rem 1.25rem;">
+    <div style="font-size:14px;font-weight:600;color:var(--gold);margin-bottom:6px;">Kapanış Töreni + Bakü Eylem Çağrısı — 15:00–17:00 · Tören Salonu</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">Bakü Eylem Çağrısı bugün açıklanıyor. Bir kopyasını hemen alın ve aynı gün okuyun. Bu belge, önümüzdeki 3 yıl boyunca küresel konut politikası dilini belirleyecek. SP'nin bu etkinlik sonrası gönderdiği her e-posta bu belgenin dilini yansıtmalı — bakanlıklara SP'nin politika bağlamını kavradığını gösterir.</div>
+  </div>
+</section>
+
+
+<footer>
+  <span>SP Architects</span> · WUF13 Katılım Rehberi · 15 Mayıs 2026 · Bakü, Azerbaycan
+</footer>
+</div>
+
+<script>
+let currentLang = null;
+let enChecked = 0, trChecked = 0;
+const total = 16;
+
+function selectLang(lang) {
+  document.getElementById('lang-gate').style.display = 'none';
+  document.getElementById('lang-switch-bar').style.display = 'flex';
+  showLang(lang);
+}
+
+function switchLang(lang) {
+  showLang(lang);
+}
+
+function showLang(lang) {
+  currentLang = lang;
+  document.getElementById('content-en').style.display = lang === 'en' ? 'block' : 'none';
+  document.getElementById('content-tr').style.display = lang === 'tr' ? 'block' : 'none';
+  document.getElementById('btn-en').className = 'lang-btn' + (lang === 'en' ? ' active' : '');
+  document.getElementById('btn-tr').className = 'lang-btn' + (lang === 'tr' ? ' active' : '');
+  document.documentElement.lang = lang;
+  updateProgress(lang);
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  el.innerHTML = el.classList.contains('done') ? '&#10003;' : '&#9633;';
+  updateProgress(currentLang);
+}
+
+function updateProgress(lang) {
+  const prefix = lang === 'en' ? 'content-en' : 'content-tr';
+  const container = document.getElementById(prefix);
+  if (!container) return;
+  const done = container.querySelectorAll('.check-btn.done').length;
+  const progText = container.querySelector('#prog-text');
+  const progFill = container.querySelector('#prog-fill');
+  if (progText) progText.textContent = lang === 'tr' ? done + ' / ' + total : done + ' of ' + total;
+  if (progFill) progFill.style.width = Math.round((done/total)*100) + '%';
+}
+
+// Nav scroll highlighting per language panel
+function setupScrollObserver(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const sections = container.querySelectorAll('section[id]');
+  const navLinks = container.querySelectorAll('nav a[href^="#"]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const active = container.querySelector('nav a[href="#' + id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+}
+
+setupScrollObserver('content-en');
+setupScrollObserver('content-tr');
+</script>
+
+</body>
+</html>
